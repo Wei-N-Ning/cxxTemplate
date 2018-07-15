@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# an experiment to inspect how the assembly calls the forwarding
+# function
+
+# observation shows that
+# main() populates the registers for the functor and its arguments
+# then calls 0x400628 the wrapper template
+# the wrapper, even though marked inline, as its own frame
+# I can see std::forward() and std::remove_reference in the listing
+
+
 setUp() {
     set -e
     rm -rf /tmp/sut
@@ -53,4 +63,4 @@ setUp
 buildProgram
 cxxCompile
 /tmp/_
-disassemble /tmp/_
+disassemble /tmp/_ 0x400628
