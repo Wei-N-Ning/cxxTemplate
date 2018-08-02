@@ -18,10 +18,38 @@
 // specialization of std::char_traits<T>
 //
 
+#include <cassert>
+
+// required method: T* T::clone() const
+
+// P31
+//
+// write a specialization for each clone-able class
+template<class T>
+class Cloneable {
+public:
+    static T* clone(const T* instance) { return nullptr; }
+};
+
+class SUT {
+public:
+    SUT* clone() const { return nullptr; }
+};
+
+template<>
+class Cloneable<SUT> {
+public:
+    static SUT* clone(const SUT* instance) { return instance->clone(); }
+};
+
+
 void test_has_function_trait() {
+    SUT c;
+    assert(&c != c.clone());
 }
 
+
 int main() {
-    
+    test_has_function_trait();
     return 0;
 }
