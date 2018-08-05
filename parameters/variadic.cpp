@@ -2,6 +2,14 @@
 // Created by wein on 5/27/18.
 //
 
+// used this in wkou code base
+// recall EMC++ variadic parameter and perfect forwarding
+// TODO: 
+// 1. verify that for bar_impl(const std::string&), the callee indeed
+// gets a reference (not reconstructed)
+// 2. verify that Ts... params can work with any reference types
+// 3. forward() is indeed perfect (when using Ts&&...)
+
 #include <cassert>
 #include <tuple>
 #include <string>
