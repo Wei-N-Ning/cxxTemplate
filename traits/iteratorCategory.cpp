@@ -43,7 +43,11 @@ int main(int argc, const char** argv) {
     auto vi = v.cbegin();
     std::list<int> l(0, 10);
     auto li = l.cbegin();
+
+    // taking advantage of random access
     test::advance(vi, 3);
+
+    // use linear access
     test::advance(li, 3);
     return 0;
 }

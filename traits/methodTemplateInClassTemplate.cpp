@@ -10,14 +10,15 @@
 
 // since the wt code base is C++98, the example here uses boost type_traits
 // and static assert instead of the standard library version
-
+// UPDATE: I modified it to use C++11's type_traits - the callsite has
+// no difference
 
 #include <cassert>
 #ifdef DONTRUN
 #include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
 #endif
-#include <traits>
+#include <type_traits>
 
 template<typename ValueT, int _Rows>
 class SUT {
@@ -32,15 +33,15 @@ public:
 
     template<typename T0, typename T1>
     void foo(const ValueT& v) {
-        BOOST_STATIC_ASSERT(boost::is_same<int, T0>::value);
-        BOOST_STATIC_ASSERT(boost::is_same<int, T1>::value);
+        static_assert(std::is_same<int, T0>::value, "");
+        static_assert(std::is_same<int, T1>::value, "");
         this->v = v;
     }
 };
 
 int main() {
     typedef SUT<int, 3> MySut;
-    BOOST_STATIC_ASSERT(3 == MySut::rows);
+    static_assert(3 == MySut::rows, "");
 
     // T0, T1 are deduced from parameters
     MySut mySut(23.1, 2);
