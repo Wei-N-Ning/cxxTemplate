@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
-project(cxxTemplate)
+project(C++Template)
 
+enable_testing()
 
-
-add_executable(methodTemplateInClassTemplate methodTemplateInClassTemplate.cpp)
+add_executable(methodTemplateInClassTemplate
+    methodTemplateInClassTemplate.cpp)
 set_target_properties(methodTemplateInClassTemplate
     PROPERTIES
     CXX_STANDARD 98)
