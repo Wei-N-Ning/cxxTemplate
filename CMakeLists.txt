@@ -3,13 +3,14 @@ project(C++Template)
 
 enable_testing()
 
-add_executable(methodTemplateInClassTemplate
-    methodTemplateInClassTemplate.cpp)
-set_target_properties(methodTemplateInClassTemplate
-    PROPERTIES
-    CXX_STANDARD 98)
+#add_executable(methodTemplateInClassTemplate
+#    methodTemplateInClassTemplate.cpp)
+#set_target_properties(methodTemplateInClassTemplate
+#    PROPERTIES
+#    CXX_STANDARD 98)
 
 add_subdirectory(compute)
+add_subdirectory(overloading)
 add_subdirectory(parameters)
 add_subdirectory(policy)
 add_subdirectory(singleton)

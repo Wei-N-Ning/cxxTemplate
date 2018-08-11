@@ -13,8 +13,11 @@
 
 
 #include <cassert>
+#ifdef DONTRUN
 #include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
+#endif
+#include <traits>
 
 template<typename ValueT, int _Rows>
 class SUT {
