@@ -9,6 +9,7 @@
 // his inspirational article compensates Scott Meyer's Effect Modern C++
 // and provides more explanation on when to use forwarding.
 
+#include <functional>
 #include <vector>
 #include <string>
 #include <cassert>
@@ -55,6 +56,8 @@ public:
         actions += 'D';
     }
 
+    Area& area() { return m_area; }
+
     static std::string actions;
 private:
     Canvas m_canvas;
@@ -63,7 +66,9 @@ private:
 
 std::string Texture::actions;
 
-void emplace_construct() {
+namespace emplace_construct {
+
+void push_back() {
     std::vector<Texture> textures;
     Canvas canvas(10, 10);
 
@@ -74,9 +79,16 @@ void emplace_construct() {
     //   the object actually allocated inside the vector
     //   (M; but if move-ctor is remove, the action here will be C)
     // > dtor for the temporary (D)
+
     Texture::actions.clear();
     textures.push_back(Texture(canvas, Area()));
     assert(std::string("AMD") == Texture::actions);
+}
+
+void emplace_back_alloc() {
+    std::vector<Texture> textures;
+    Canvas canvas(10, 10);
+    textures.push_back(Texture(canvas, Area()));
 
     // NOTE: vector needs to allocate new storage space for the newly
     // created element - this result in a different code path to the
@@ -84,21 +96,127 @@ void emplace_construct() {
     // with GCC 7, it calls insert(end(), std::forward<...>()...)
     // therefore it still creates a temporary object (so that insert()
     // can work)
+    // There is a weak assumption that the compiler will not pre-allocate
+    // addition space after ctor or push_back.
+
     Texture::actions.clear();
     textures.emplace_back(canvas, Area{1, 1, 2, 2});
     assert(std::string("AMD") == Texture::actions);
+}
+
+void emplace_back() {
+    std::vector<Texture> textures;
+    Canvas canvas(10, 10);
+    textures.reserve(4);
 
     // At this time, the storage space is enough for emplace-construction,
     // so the action sequence is reduced to a single call to the ctor
-    textures.reserve(4);
+
     Texture::actions.clear();
     textures.emplace_back(canvas, Area{4, 5, 8, 9});
     assert(std::string("A") == Texture::actions);
-    //Area smallArea{1, 1, 2, 2};
+}
+
+}
+
+// Article
+// Let func(E1, E2...) be an arbitrary function call with generic
+// parameters E1, E2... we'd like to write a function wrapper...
+// it forwards its parameters perfectly to some other function
+namespace forwarding_problem {
+
+// to scale an area
+void func(Area& area, int s) {
+    area.m_maxX = area.m_minX + (area.m_maxX - area.m_minX) * s;
+    area.m_maxY = area.m_minY + (area.m_maxY - area.m_minY) * s;
+}
+
+// the const-area-ref version, this time scale is a mutable ref
+void func(const Area& area, int& s) {
+    s = static_cast<int>(area.m_maxX - area.m_minX);
+}
+
+// this will obviously not work if func accepts its parameters by
+// reference, since wrapper() introduces a by-value passing step.
+// if func modifies its by-reference parameter, it won't be visible
+// in the caller of wrapper(), only the copy created by wrapper itself
+// will be affected
+// template<typename... Args>
+// void wrapper(Args... args) { return func(args...); }
+
+template<typename... Args>
+void wrapper(Args&&... args) {
+    func(std::forward<Args>(args)...);
+}
+
+// rvalues can not be bound to function parameters that are references,
+
+// //////////////////////////////////////////////////
+// The result is the reference collapsing rule.
+// The rule is very simple. & always wins.
+// So & & is &, and so are && & and & &&.
+// The only case where && emerges from collapsing is && &&.
+// You can think of it as a logical-OR, with & being 1 and && being 0.
+// //////////////////////////////////////////////////
+
+// One can see forward as a pretty wrapper around static_cast<T&&>(t)
+// when T can be deduced to either U& or U&&, depending on the kind
+// of argument to the wrapper (lvalue or rvalue). Now we get wrapper
+// as a single template that handles all kinds of forwarding cleanly.
+
+// NOTE:
+// I must implement all the variations of func() so that:
+// const-ref,
+// value
+// rvalue-ref
+// all can be handled
+void test() {
+
+    /*
+     *
+    template <typename _Tp>
+    constexpr _Tp&& forward(typename std::remove_reference<_Tp>::type &
+    __t) noexcept {
+        return static_cast<_Tp&&>(__t);
+    }
+
+    template <typename _Tp>
+    constexpr _Tp&& forward(typename std::remove_reference<_Tp>::type &&
+    __t) noexcept {
+        static_assert(!std::is_lvalue_reference<_Tp>::value,
+                      "template argument"
+                      " substituting _Tp is an lvalue reference type");
+        return static_cast<_Tp&&>(__t);
+    }
+    */
+
+    Area area{4, 5, 4, 5};
+
+    // area is an lvalue, therefore it calls forward<Area&>()
+    // Area& forward(Area& area) noexcept {
+    //   return static_cast<Area&>(area);
+    // }
+    // the func invoked is
+    // void func(Area& area, int s)
+    wrapper(area, 4);
+    assert(area.m_maxX == 8);
+    assert(area.m_maxY == 8);
+
+    int scale = 4;
+    // area now is a rvalue, therefore it calls forward<Area>
+    // the func invoked is
+    // void func(const Area& area, int& s)
+    wrapper(Area{4, 5, 4, 5}, scale);
+    assert(scale == 1);
+}
 
 }
 
 int main() {
-    emplace_construct();
+    emplace_construct::push_back();
+    emplace_construct::emplace_back_alloc();
+    emplace_construct::emplace_back();
+
+    forwarding_problem::test();
     return 0;
 }
