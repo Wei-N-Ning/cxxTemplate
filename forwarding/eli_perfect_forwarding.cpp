@@ -57,7 +57,7 @@ public:
 
     static std::string actions;
 private:
-    Canvas& m_canvas;
+    Canvas m_canvas;
     Area m_area;
 };
 
