@@ -166,7 +166,7 @@ void wrapper(Args&&... args) {
 
 // NOTE:
 // I must implement all the variations of func() so that:
-// const-ref,
+// const-ref
 // value
 // rvalue-ref
 // all can be handled
