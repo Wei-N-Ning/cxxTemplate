@@ -3,6 +3,8 @@ project(C++Template)
 
 enable_testing()
 
+include(tinyCUnit/tinyCUnit.cmake)
+
 #add_executable(methodTemplateInClassTemplate
 #    methodTemplateInClassTemplate.cpp)
 #set_target_properties(methodTemplateInClassTemplate
