@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.8)
 project(C++Template)
 
-enable_testing()
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(tinyCUnit/tinyCUnit.cmake)
+enable_testing()
+add_subdirectory(vendor/doctest)
+include(vendor/tinyCUnit/tinyCUnit.cmake)
 
 #add_executable(methodTemplateInClassTemplate
 #    methodTemplateInClassTemplate.cpp)
@@ -20,3 +23,4 @@ add_subdirectory(tags)
 add_subdirectory(traits)
 add_subdirectory(typeDeduction)
 add_subdirectory(forwarding)
+
