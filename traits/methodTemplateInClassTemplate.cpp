@@ -13,11 +13,9 @@
 // UPDATE: I modified it to use C++11's type_traits - the callsite has
 // no difference
 
-#include <cassert>
-#ifdef DONTRUN
-#include <boost/static_assert.hpp>
-#include <boost/type_traits.hpp>
-#endif
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
+
 #include <type_traits>
 
 template<typename ValueT, int _Rows>
@@ -39,22 +37,20 @@ public:
     }
 };
 
-int main() {
+TEST_CASE ("") {
     typedef SUT<int, 3> MySut;
     static_assert(3 == MySut::rows, "");
 
     // T0, T1 are deduced from parameters
     MySut mySut(23.1, 2);
-    assert(25 == mySut.v);
+    CHECK_EQ(25, mySut.v);
 
     // T0, T1 are explicitly defined by the caller
     // this can not happen in the ctor
     mySut.foo<int, int>(1213);
-    assert(1213 == mySut.v);
+    CHECK_EQ(1213, mySut.v);
 
     // this won't compile
     // no matching function for call to ‘SUT<int, 3>::foo(int)’
     // mySut.foo(2058);
-
-    return 0;
 }

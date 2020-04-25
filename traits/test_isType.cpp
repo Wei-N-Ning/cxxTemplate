@@ -2,9 +2,8 @@
 // Created by wein on 4/9/18.
 //
 
-#include <cassert>
-
-namespace IsBoolTest {
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 template<typename T>
 struct is_bool {
@@ -24,14 +23,7 @@ int sut(T t) {
     return -10;
 }
 
-void test_isBool() {
-    assert(-10 == sut(101));
-    assert(101 == sut(false));
-}
-
-}
-
-int main(int argc, char **argv) {
-    IsBoolTest::test_isBool();
-    return 0;
+TEST_CASE ("test_isBool()") {
+    CHECK_EQ(-10, sut(101));
+    CHECK_EQ(101, sut(false));
 }

@@ -3,6 +3,8 @@
 //
 // see:
 // https://stackoverflow.com/questions/34519073/inherit-singleton
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <type_traits>
 #include <cassert>
@@ -46,9 +48,8 @@ private:
     int m_credit;
 };
 
-int main(int argc, char **argv) {
-    assert(0 == VIP::instance().credit());
+TEST_CASE ("") {
+    CHECK_EQ(0, VIP::instance().credit());
     VIP::instance().setCredit(130);
-    assert(130 == VIP::instance().credit());
-    return 0;
+    CHECK_EQ(130, VIP::instance().credit());
 }

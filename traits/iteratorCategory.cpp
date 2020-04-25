@@ -2,11 +2,12 @@
 // Created by wein on 4/28/18.
 //
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
+
 #include <iterator>
 #include <list>
 #include <vector>
-
-namespace test {
 
 namespace impl {
 template <class InputIterator, class Distance>
@@ -36,18 +37,16 @@ void advance(InputIterator& i, Distance n) {
     typename std::iterator_traits<InputIterator>::iterator_category category;
     impl::advance_dispatch(i, n, category);
 }
-} // end of namespace test
 
-int main(int argc, const char** argv) {
+TEST_CASE ("") {
     std::vector<int> v(0, 10);
     auto vi = v.cbegin();
     std::list<int> l(0, 10);
     auto li = l.cbegin();
 
     // taking advantage of random access
-    test::advance(vi, 3);
+    ::advance(vi, 3);
 
     // use linear access
-    test::advance(li, 3);
-    return 0;
+    ::advance(li, 3);
 }

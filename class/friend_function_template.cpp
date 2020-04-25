@@ -1,3 +1,5 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <cassert>
 
@@ -15,16 +17,9 @@ class SUT {
     friend decltype(m_value) getValue<const SUT&, decltype(m_value)>(const SUT& sut);
 };
 
-void RunTinyTests();
-
-void test_expect_friend() {
+TEST_CASE ("test_expect_friend access") {
     SUT sut;
     auto v = getValue<const SUT&, int>(sut);
     assert(-123 == v);
 
-}
-
-int main() {
-    RunTinyTests();
-    return 0;
 }

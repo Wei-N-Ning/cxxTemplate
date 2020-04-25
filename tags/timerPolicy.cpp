@@ -2,9 +2,11 @@
 // Created by wein on 4/29/18.
 //
 // study note taken from wkou/WKContext: PTimer
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
 
 #include <cstdint>
-#include <cassert>
 
 namespace tags {
 using TAG = uint32_t;  // to categorize policy and impl classes
@@ -62,10 +64,9 @@ public:
 
 }
 
-int main(int argc, char **argv) {
+TEST_CASE ("") {
     impl::Timer<tags::DOOM> doomTimer;
-    assert(3.0 == doomTimer.now());
+    CHECK_EQ(3.0, doomTimer.now());
     impl::Timer<tags::DUKE3D> duke3dTimer;
-    assert(6 == duke3dTimer.now());
-    return 0;
+    CHECK_EQ(6, duke3dTimer.now());
 }

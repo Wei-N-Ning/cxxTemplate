@@ -1,5 +1,4 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-
 #include "doctest/doctest.h"
 
 // use custom type and stl container with univsersal reference;

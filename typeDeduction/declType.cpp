@@ -81,7 +81,7 @@ TEST_CASE ("test_variables") {
 }
 
 template<typename A, typename B>
-auto do_max(const A &a, const B &b) -> decltype(a > b ? a : b) {
+auto do_max(const A &a, const B &b) -> decltype(b < a ? b : a) {
     return a > b ? a : b;
 }
 
@@ -99,7 +99,8 @@ TEST_CASE ("deduce return type of max(a, b)") {
     char c = '\45';
     double d = 12.7;
     int i = 12;
-    // auto result = do_max(i, c); -> return type is int, even though the c (\45) wins
+    // auto unknown = do_max(i, c); // -> return type is int, even though the c (\45) wins
+
     auto result = do_max(i, d);  // return type is double as 12.7 wins
     CHECK(std::is_same<decltype(result), double>::value);
 }

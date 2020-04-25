@@ -18,7 +18,8 @@
 // specialization of std::char_traits<T>
 //
 
-#include <cassert>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 // required method: T* T::clone() const
 
@@ -43,13 +44,7 @@ public:
 };
 
 
-void test_has_function_trait() {
+TEST_CASE ("test_has_function_trait()") {
     SUT c;
-    assert(&c != c.clone());
-}
-
-
-int main() {
-    test_has_function_trait();
-    return 0;
+    CHECK_NE(&c, c.clone());
 }

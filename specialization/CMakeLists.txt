@@ -1,15 +1,7 @@
 
-add_executable(explicitSpecialization explicit.cpp)
-set_target_properties(explicitSpecialization
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "specialization::explicit"
-    COMMAND explicitSpecialization)
+add_executable(specialization_explicit explicit.cpp)
+add_test(NAME "specialization::explicit" COMMAND specialization_explicit)
 
-add_executable(partialSpecialization partial.cpp)
-set_target_properties(partialSpecialization
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "specialization::partial"
-    COMMAND partialSpecialization)
+add_executable(specialization_partial partial.cpp)
+add_test(NAME "specialization::partial" COMMAND specialization_partial)
 

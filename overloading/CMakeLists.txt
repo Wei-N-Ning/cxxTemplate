@@ -1,6 +1,4 @@
 
-add_executable(functionOverloading functions.cpp)
-set_target_properties(functionOverloading
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "overloading::functions" COMMAND functionOverloading)
+add_executable(overload_resolution_order resolution_order.cpp)
+target_link_libraries(overload_resolution_order PRIVATE doctest)
+add_test(NAME "overloading::resolution-order" COMMAND overload_resolution_order)

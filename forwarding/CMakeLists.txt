@@ -1,7 +1,8 @@
 
-add_executable(eli_perfect_forwarding eli_perfect_forwarding.cpp)
-add_test(NAME "forwarding::eli-perfect-forwarding" COMMAND eli_perfect_forwarding)
+add_executable(forwarding_eli_perfect_forwarding eli_perfect_forwarding.cpp)
+target_link_libraries(forwarding_eli_perfect_forwarding PRIVATE doctest)
+add_test(NAME "forwarding::eli-perfect-forwarding" COMMAND forwarding_eli_perfect_forwarding)
 
-add_executable(wrap_function wrap_function.cpp)
-target_link_libraries(wrap_function PRIVATE doctest)
-add_test(NAME "forwarding::wrap-function" COMMAND wrap_function)
+add_executable(forwarding_wrap_function wrap_function.cpp)
+target_link_libraries(forwarding_wrap_function PRIVATE doctest)
+add_test(NAME "forwarding::wrap-function" COMMAND forwarding_wrap_function)

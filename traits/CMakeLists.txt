@@ -1,24 +1,16 @@
 
-add_executable(isTypeTest test_isType.cpp)
-set_target_properties(isTypeTest
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-traits::is-type" COMMAND isTypeTest)
+add_executable(traits_is_type test_isType.cpp)
+target_link_libraries(traits_is_type PRIVATE doctest)
+add_test(NAME "traits::is-type" COMMAND traits_is_type)
 
-add_executable(hasMethodTrait has_method_trait.cpp)
-set_target_properties(hasMethodTrait
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-traits::has-method" COMMAND hasMethodTrait)
+add_executable(traits_has_method has_method_trait.cpp)
+target_link_libraries(traits_has_method PRIVATE doctest)
+add_test(NAME "traits::has-method" COMMAND traits_has_method)
 
-add_executable(iteratorCategory iteratorCategory.cpp)
-set_target_properties(iteratorCategory
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-traits::iterator-category" COMMAND iteratorCategory)
+add_executable(traits_iterator_category iteratorCategory.cpp)
+target_link_libraries(traits_iterator_category PRIVATE doctest)
+add_test(NAME "traits::iterator-category" COMMAND traits_iterator_category)
 
-add_executable(isSameType methodTemplateInClassTemplate.cpp)
-set_target_properties(isSameType
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-traits::is-same-type" COMMAND isSameType)
+add_executable(traits_method_template_in_class_template methodTemplateInClassTemplate.cpp)
+target_link_libraries(traits_method_template_in_class_template PRIVATE doctest)
+add_test(NAME "traits::method-template-in-class-template" COMMAND traits_method_template_in_class_template)

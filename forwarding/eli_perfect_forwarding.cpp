@@ -1,6 +1,8 @@
 //
 // Created by wein on 1/09/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 // source
 // Eli Bendersky's website:
@@ -12,7 +14,6 @@
 #include <functional>
 #include <vector>
 #include <string>
-#include <cassert>
 
 // to be painted by textures
 class Canvas {
@@ -66,9 +67,7 @@ private:
 
 std::string Texture::actions;
 
-namespace emplace_construct {
-
-void push_back() {
+TEST_CASE ("push_back()") {
     std::vector<Texture> textures;
     Canvas canvas(10, 10);
 
@@ -82,10 +81,10 @@ void push_back() {
 
     Texture::actions.clear();
     textures.push_back(Texture(canvas, Area()));
-    assert(std::string("AMD") == Texture::actions);
+    CHECK_EQ(std::string("AMD"), Texture::actions);
 }
 
-void emplace_back_alloc() {
+TEST_CASE ("emplace_back_alloc()") {
     std::vector<Texture> textures;
     Canvas canvas(10, 10);
     textures.push_back(Texture(canvas, Area()));
@@ -101,10 +100,10 @@ void emplace_back_alloc() {
 
     Texture::actions.clear();
     textures.emplace_back(canvas, Area{1, 1, 2, 2});
-    assert(std::string("AMD") == Texture::actions);
+    CHECK_EQ(std::string("AMD"), Texture::actions);
 }
 
-void emplace_back() {
+TEST_CASE ("emplace_back()") {
     std::vector<Texture> textures;
     Canvas canvas(10, 10);
     textures.reserve(4);
@@ -114,16 +113,13 @@ void emplace_back() {
 
     Texture::actions.clear();
     textures.emplace_back(canvas, Area{4, 5, 8, 9});
-    assert(std::string("A") == Texture::actions);
-}
-
+    CHECK_EQ(std::string("A"), Texture::actions);
 }
 
 // Article
 // Let func(E1, E2...) be an arbitrary function call with generic
 // parameters E1, E2... we'd like to write a function wrapper...
 // it forwards its parameters perfectly to some other function
-namespace forwarding_problem {
 
 // to scale an area
 void func(Area& area, int s) {
@@ -170,7 +166,7 @@ void wrapper(Args&&... args) {
 // value
 // rvalue-ref
 // all can be handled
-void test() {
+TEST_CASE ("") {
 
     /*
      *
@@ -199,24 +195,13 @@ void test() {
     // the func invoked is
     // void func(Area& area, int s)
     wrapper(area, 4);
-    assert(area.m_maxX == 8);
-    assert(area.m_maxY == 8);
+    CHECK_EQ(area.m_maxX,  8);
+    CHECK_EQ(area.m_maxY, 8);
 
     int scale = 4;
     // area now is a rvalue, therefore it calls forward<Area>
     // the func invoked is
     // void func(const Area& area, int& s)
     wrapper(Area{4, 5, 4, 5}, scale);
-    assert(scale == 1);
-}
-
-}
-
-int main() {
-    emplace_construct::push_back();
-    emplace_construct::emplace_back_alloc();
-    emplace_construct::emplace_back();
-
-    forwarding_problem::test();
-    return 0;
+    CHECK_EQ(scale, 1);
 }

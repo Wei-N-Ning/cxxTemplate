@@ -1,6 +1,8 @@
 //
 // Created by wein on 5/6/18.
 //
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 #include <iostream>
 
@@ -30,7 +32,7 @@ struct Align< T, 0 >
     enum { value = sizeof( T ) };
 };
 
-int main(int argc, char **argv) {
+TEST_CASE ("") {
     struct Align<char, 7> unnamed;
     std::cout << unnamed.value << std::endl;
     // char, 15 -> 16
@@ -40,5 +42,4 @@ int main(int argc, char **argv) {
 
     // the resulting value is available at compile time
     char ignore[unnamed.value];
-    return 0;
 }

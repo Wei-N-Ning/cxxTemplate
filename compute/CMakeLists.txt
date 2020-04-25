@@ -1,6 +1,3 @@
-add_executable(computeAlignmentSize alignSize.cpp)
-set_target_properties(computeAlignmentSize
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "compute::struct-size"
-    COMMAND computeAlignmentSize)
+add_executable(compute_align_size alignSize.cpp)
+target_link_libraries(compute_align_size PRIVATE doctest)
+add_test(NAME "compute::align-struct-size" COMMAND compute_align_size)
