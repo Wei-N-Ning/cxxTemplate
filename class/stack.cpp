@@ -13,6 +13,9 @@
 template<typename T>
 class Stack {
 public:
+    static_assert(std::is_default_constructible<T>::value,
+        "class Stack required default-constructible element");
+
     Stack() = default;
     Stack(std::initializer_list<T> il) : vec(il) {}
 
@@ -65,4 +68,17 @@ TEST_CASE ("effect") {
     if (auto v = s.pop(); v.has_value()) {
         CHECK_EQ(v, 10);
     }
+}
+
+class C {
+public:
+    C() = delete;
+};
+
+TEST_CASE ("the concept constraint") {
+    // this will trigger the static_assert
+    // Stack<C> s;
+
+    // this is fine: array is default constructible
+    Stack<std::array<int, 1>> s;
 }

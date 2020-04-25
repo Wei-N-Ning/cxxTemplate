@@ -69,4 +69,8 @@ have recompile; also if the template definition uses other types not
 already mentioned, then all their callers will need to see those types' 
 full definitions too
 
+## Class template
+
+see /class
+
 ## Template, Container and Iterator
