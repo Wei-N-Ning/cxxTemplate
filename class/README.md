@@ -1,5 +1,8 @@
 # Class Template
 
+see stack.cpp for a complete walk through of class template, based on 
+the book C++ templates: complete guide
+
 ## The concept of "Concept"
 
 read: C++ templates: complete guide L1672

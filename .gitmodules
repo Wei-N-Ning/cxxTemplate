@@ -1,6 +1,3 @@
-[submodule "vendor/tinyCUnit"]
-	path = vendor/tinyCUnit
-	url = git@Wei-N-Ning.github.com:Wei-N-Ning/tinyCUnit
 [submodule "vendor/doctest"]
 	path = vendor/doctest
 	url = https://github.com/onqtam/doctest

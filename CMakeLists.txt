@@ -6,13 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 enable_testing()
 add_subdirectory(vendor/doctest)
-include(vendor/tinyCUnit/tinyCUnit.cmake)
-
-#add_executable(methodTemplateInClassTemplate
-#    methodTemplateInClassTemplate.cpp)
-#set_target_properties(methodTemplateInClassTemplate
-#    PROPERTIES
-#    CXX_STANDARD 98)
 
 add_subdirectory(compute)
 add_subdirectory(overloading)
@@ -25,4 +18,5 @@ add_subdirectory(traits)
 add_subdirectory(typeDeduction)
 add_subdirectory(forwarding)
 add_subdirectory(nested_parameter)
+add_subdirectory(decay)
 
