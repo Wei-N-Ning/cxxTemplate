@@ -9,3 +9,7 @@ add_test(NAME "class::friend-function-template" COMMAND class_friend_function_te
 add_executable(class_stack stack.cpp)
 target_link_libraries(class_stack PRIVATE doctest)
 add_test(NAME "class::stack-example" COMMAND class_stack)
+
+add_executable(class_pod pod.cpp)
+target_link_libraries(class_pod PRIVATE doctest)
+add_test(NAME "class::pod/aggregate" COMMAND class_pod)

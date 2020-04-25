@@ -13,3 +13,7 @@ add_test(NAME "deduction::view-type" COMMAND deduction_viewDeducedTypesTest)
 add_executable(deduction_containerValueType containerValueType.cpp)
 target_link_libraries(deduction_containerValueType PRIVATE doctest)
 add_test(NAME "deduction::universal-reference-and-value-type" COMMAND deduction_containerValueType)
+
+add_executable(deduction_from_constructor_args deduce_from_ctor.cpp)
+target_link_libraries(deduction_from_constructor_args PRIVATE doctest)
+add_test(NAME "deduction::deduce-type-param-from-ctor" COMMAND deduction_from_constructor_args)
