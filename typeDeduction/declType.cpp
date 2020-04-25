@@ -3,10 +3,12 @@
 //
 // source: EMC++ Item 3 P23
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
+#include "doctest/doctest.h"
+
 #include <cassert>
 #include <vector>
-
-namespace Item3 {
 
 void logAccess() {
     ;
@@ -34,7 +36,7 @@ decltype(auto) access(Container &&c, Index i) {
     return std::forward<Container>(c)[i];
 }
 
-void test_returnTypes_lvalueContainer() {
+TEST_CASE ("test_returnTypes_lvalueContainer") {
     std::vector<int> v{0, 0, 0};
 
     // classic operator[], returns a mutable ref
@@ -45,27 +47,27 @@ void test_returnTypes_lvalueContainer() {
     // CLion does not seem to understand decltype(auto)
     access(v, 2) = 1;
 
-    assert(1 == v[2]);
+    CHECK_EQ(1, v[2]);
 }
 
-void test_returnTypes_rvalueContainer() {
+TEST_CASE ("test_returnTypes_rvalueContainer") {
     Dumm d;
     const Dumm &dRef = d;
     const Dumm dConst;
 
-    assert(MUTABLE == access(Dumm(), INDEX));
-    assert(MUTABLE == access(d, INDEX));
-    assert(CONSTANT == access(dRef, INDEX));
-    assert(CONSTANT == access(dConst, INDEX));
+    CHECK_EQ(MUTABLE, access(Dumm(), INDEX));
+    CHECK_EQ(MUTABLE, access(d, INDEX));
+    CHECK_EQ(CONSTANT, access(dRef, INDEX));
+    CHECK_EQ(CONSTANT, access(dConst, INDEX));
 
     auto createConstDumm = []() -> const Dumm {
         const Dumm tmp;
         return tmp;
     };
-    assert(CONSTANT == access(createConstDumm(), INDEX));
+    CHECK_EQ(CONSTANT, access(createConstDumm(), INDEX));
 }
 
-void test_variables() {
+TEST_CASE ("test_variables") {
     struct Some {
     };
 
@@ -74,15 +76,48 @@ void test_variables() {
     auto other = someRef;
     decltype(auto) shouldBeRef = someRef;
 
-    assert((std::is_same<Some, decltype(other)>::value));
-    assert((std::is_same<const Some &, decltype(shouldBeRef)>::value));
+    CHECK((std::is_same<Some, decltype(other)>::value));
+    CHECK((std::is_same<const Some &, decltype(shouldBeRef)>::value));
 }
 
+template<typename A, typename B>
+auto do_max(const A &a, const B &b) -> decltype(a > b ? a : b) {
+    return a > b ? a : b;
 }
 
-int main() {
-    Item3::test_returnTypes_lvalueContainer();
-    Item3::test_returnTypes_rvalueContainer();
-    Item3::test_variables();
-    return 0;
+// c++ templates guide L/1058
+// there are 3 ways to deduce the result type from a non-deterministic computation
+// 1. return type parameter, requires explicit (partial) template instantiation
+// 2. let the compiler guess, hence decltype()
+// 3. use a common type
+// my take is:
+// explicit is better than implicit
+template<typename t>
+class TypeTester;
+
+TEST_CASE ("deduce return type of max(a, b)") {
+    char c = '\45';
+    double d = 12.7;
+    int i = 12;
+    // auto result = do_max(i, c); -> return type is int, even though the c (\45) wins
+    auto result = do_max(i, d);  // return type is double as 12.7 wins
+    CHECK(std::is_same<decltype(result), double>::value);
+}
+
+// inspired by c++ templates guide L/1136
+// the example here ensures no reference is returned; however what if
+// I want to write more concise code like below and do return a mutable
+// reference ?
+template<typename T>
+T&& do_max_ref(T&& a, T&& b) {
+    return a > b ? a : b;
+}
+
+TEST_CASE ("max(a, b) return the original reference") {
+    int a = 10, b = 1100;
+    ++do_max_ref(a, b);
+    CHECK_EQ(1101, b);
+
+    const int c = 1, d = 2;
+    // ++do_max_ref(c, d);  -> returns a const value
 }

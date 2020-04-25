@@ -1,28 +1,13 @@
-add_executable(typeTAndParamTest typeTAndParam.cpp)
-set_target_properties(typeTAndParamTest
-    PROPERTIES
-    CXX_STANDARD 17)
-add_test(NAME "type-deduction::T-and-param" COMMAND typeTAndParamTest)
+add_executable(deduction_typeTAndParamTest typeTAndParam.cpp)
+add_test(NAME "deduction::T-and-param" COMMAND deduction_typeTAndParamTest)
 
-add_executable(declTypeTest declType.cpp)
-set_target_properties(declTypeTest
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-deduction::decltype" COMMAND declTypeTest)
+add_executable(deduction_declTypeTest declType.cpp)
+target_link_libraries(deduction_declTypeTest PRIVATE doctest)
+add_test(NAME "deduction::decltype" COMMAND deduction_declTypeTest)
 
-add_executable(viewDeducedTypesTest viewDeducedTypes.cpp)
-set_target_properties(viewDeducedTypesTest
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(NAME "type-deduction::view-type" COMMAND viewDeducedTypesTest)
+add_executable(deduction_viewDeducedTypesTest viewDeducedTypes.cpp)
+add_test(NAME "deduction::view-type" COMMAND deduction_viewDeducedTypesTest)
 
-add_tinytest_executable(containerValueType containerValueType.cpp)
-set_target_properties(containerValueType
-    PROPERTIES
-    CXX_STANDARD 14)
-add_test(
-    NAME
-    "type-deduction::universal-reference-and-value-type"
-    COMMAND
-    containerValueType
-    )
+add_executable(deduction_containerValueType containerValueType.cpp)
+target_link_libraries(deduction_containerValueType PRIVATE doctest)
+add_test(NAME "deduction::universal-reference-and-value-type" COMMAND deduction_containerValueType)
