@@ -88,8 +88,12 @@ std::ostream &do_print(std::ostream &os, Ts... args) {
 // template
 void recur_print() {}
 
+// complete guide L2760
+// note how to use reference with variadic template
+// reference ensures NO decay and NO copy
+// this enables perfect forwarding
 template<typename T, typename... Ts>
-void recur_print(T head, Ts... tail) {
+void recur_print(T head, const Ts&... tail) {
     // L2611
     // C++ 11 also introduced a new sizeof...() op for variadic templates
     // it expands to the number of elements a parameter pack contains
