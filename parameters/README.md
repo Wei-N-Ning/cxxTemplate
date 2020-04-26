@@ -10,3 +10,11 @@ C++ templates: complete guide L/2211
 > as with templates using type params, you define code for which a certain
 > detail remains open util the code is used. However the detail that is open
 > is a value instead of a type
+
+see fixed_size_stack.cpp for complete walk through.
+
+## Variadic Templates
+
+C++ templates: complete guide L2530
+
+see variadic.cpp 

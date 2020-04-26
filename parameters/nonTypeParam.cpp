@@ -1,3 +1,5 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
 /*
 source
@@ -21,9 +23,8 @@ struct Vector {
     unsigned char bytes[S];
 };
 
-int main() {
+TEST_CASE ("") {
     // pass 3 as argument.
     Vector<3> test{1, 1, 1};
-    static_assert(3 == sizeof(test), "");
-    return 0;
+    static_assert(3 == sizeof(test), "fail");
 }

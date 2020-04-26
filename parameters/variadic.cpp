@@ -5,11 +5,14 @@
 // used this in wkou code base
 // recall EMC++ variadic parameter and perfect forwarding
 
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
+
 #include <cassert>
 #include <tuple>
 #include <string>
 #include <cstring>
-#include <cstdio>
+#include <iostream>
 
 template<typename... Ts>
 void foo(Ts&&... params) {
@@ -50,20 +53,79 @@ int bar(Ts&&... params) {
     return bar_impl(std::forward<decltype(params)>(params)...);
 }
 
-int main() {
+TEST_CASE ("") {
     foo(1, 2.3, "asd", true);
     std::string name("13");
-    assert(1 == bar(name));
-    assert(2 == bar(1, 1.0));
+    CHECK_EQ(1, bar(name));
+    CHECK_EQ(2, bar(1, 1.0));
     
     // output parameter is a pointer
     std::string receiver;
-    assert(3 == bar(name, &receiver));
-    assert(0 == strcmp(name.c_str(), receiver.c_str()));
+    CHECK_EQ(3, bar(name, &receiver));
+    CHECK_EQ(0, strcmp(name.c_str(), receiver.c_str()));
     
     // output parameter is a mutable reference
     std::string answer;
-    assert(4 == bar(name, answer));
-    assert(0 == strcmp(name.c_str(), answer.c_str()));
-    return 0;
+    CHECK_EQ(4, bar(name, answer));
+    CHECK_EQ(0, strcmp(name.c_str(), answer.c_str()));
+}
+
+// complete guide: L2548
+// `Ts.. args` is a function parameter pack
+template<typename... Ts>
+std::ostream &do_print(std::ostream &os, Ts... args) {
+    // L2638
+    // use fold expression
+    // compute the result of `using a binary op` over all the arguments of a
+    // parameter pack (with an optional init value)
+    return (os << ... << args);
+}
+
+// complete guide L2536
+// without the bottom case to stop the recursion the compiler will throw an error:
+// error: no matching function for call to ‘recur_print()’
+// the bottom case MUST BE SEEN by the compiler before the definition of the recursive
+// template
+void recur_print() {}
+
+template<typename T, typename... Ts>
+void recur_print(T head, Ts... tail) {
+    // L2611
+    // C++ 11 also introduced a new sizeof...() op for variadic templates
+    // it expands to the number of elements a parameter pack contains
+    // L2624
+    // this approach (of doing conditional branching based on sizeof...())
+    // doesn't work because in general both branches of all if statements
+    // are instantiated (runtime decision vs compile time decision)
+    // the call to the non-existing function is still instantiated, leading
+    // to a compilation error
+    // use the compile-time if expression, added to the language since c++17
+    std::cout << head << "(" << sizeof...(Ts) << ")";
+    recur_print(tail...);
+}
+
+template<typename T>
+class TypeTester;
+
+TEST_CASE ("test variadic function template") {
+    do_print(std::cout, 1, " , ", 2u, " , ", 'c') << std::endl;
+    do_print(std::cout) << std::endl;
+
+    recur_print(1, 2u, 'c');
+}
+
+template<typename... Ts>
+auto do_sum(Ts... args) {
+    // c++ templates: complete guide L/2650
+    // left fold
+    // return (... + args);  // ((s1 + s2) + s3) ...
+    // right fold
+    return (args + ...);
+}
+
+TEST_CASE ("fold expression") {
+    // s is of type long (widest type)
+    auto s = do_sum(1u, 1l, '1', true);
+    CHECK(std::is_same_v<decltype(s), long>);
+
 }
