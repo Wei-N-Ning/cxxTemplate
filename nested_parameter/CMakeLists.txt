@@ -6,3 +6,9 @@ add_test(NAME "nested::ContainerT-depend-on-T" COMMAND nested_collection_depend_
 add_executable(nested_typename_keyword typename_keyword.cpp)
 target_link_libraries(nested_typename_keyword PRIVATE doctest)
 add_test(NAME "nested::typename-keyword" COMMAND nested_typename_keyword)
+
+add_executable(nested_method_template nested_method_template.cpp)
+target_link_libraries(nested_method_template PRIVATE doctest)
+add_test(NAME "nested::method-template-in-class-template" COMMAND nested_method_template)
+
+
