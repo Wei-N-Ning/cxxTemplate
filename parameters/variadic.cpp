@@ -133,3 +133,26 @@ TEST_CASE ("fold expression") {
     CHECK(std::is_same_v<decltype(s), long>);
 
 }
+
+// complete guide: L/2802
+template<typename X, typename... Xs>
+constexpr bool is_homogeneous(X, Xs...) {
+    return (std::is_same_v<X, Xs> && ...);
+}
+
+// inspired by the above example in the book, here is a right-fold
+template<typename A, typename B>
+B apply_g(const A &a, const B &b) {
+    return b;
+}
+
+template<typename X, typename... Xs>
+auto apply_g(X x, Xs... xs) {
+    // a right fold
+    return apply_g(x, apply_g(xs...));
+}
+
+TEST_CASE ("apply g") {
+    auto result = apply_g('1', 1, std::string{"1"}, 1l, 1u);
+    CHECK(std::is_same_v<decltype(result), unsigned int>);
+}
