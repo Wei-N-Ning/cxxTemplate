@@ -13,3 +13,8 @@ add_test(NAME "class::stack-example" COMMAND class_stack)
 add_executable(class_pod pod.cpp)
 target_link_libraries(class_pod PRIVATE doctest)
 add_test(NAME "class::pod/aggregate" COMMAND class_pod)
+
+add_executable(class_template_base template_base_class.cpp)
+target_link_libraries(class_template_base PRIVATE doctest)
+add_test(NAME "class::template-base-class" COMMAND class_template_base)
+
