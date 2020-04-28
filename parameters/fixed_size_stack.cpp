@@ -18,19 +18,19 @@ class Stack {
 public:
     Stack() = default;
     void fill() {
-        std::fill_n(elems.begin(), numElems = Maxsize, init);
+        std::fill_n(elements.begin(), numElems = Maxsize, init);
     }
 
     std::optional<T> pop() {
         if (numElems == 0) {
             return std::optional<T>{};
         }
-        return std::optional<T>{elems[--numElems]};
+        return std::optional<T>{elements[--numElems]};
     }
 
     std::optional<T> top() {
         if (numElems > 0) {
-            return std::optional<T>(elems[numElems - 1]);
+            return std::optional<T>(elements[numElems - 1]);
         }
         return std::optional<T>{};
     }
@@ -39,14 +39,14 @@ public:
         if (numElems == Maxsize) {
             return std::optional<std::size_t>{};
         }
-        elems[numElems++] = v;
+        elements[numElems++] = v;
         return std::optional<std::size_t>{numElems};
     }
 
     bool empty() { return numElems == 0; }
 
 private:
-    std::array<T, Maxsize> elems = {};
+    std::array<T, Maxsize> elements = {};
     std::size_t numElems = 0;
 };
 
