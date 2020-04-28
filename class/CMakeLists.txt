@@ -18,3 +18,6 @@ add_executable(class_template_base template_base_class.cpp)
 target_link_libraries(class_template_base PRIVATE doctest)
 add_test(NAME "class::template-base-class" COMMAND class_template_base)
 
+add_executable(class_data_member_template data_member_template.cpp)
+target_link_libraries(class_data_member_template PRIVATE doctest)
+add_test(NAME "class::data-member-template" COMMAND class_data_member_template)
