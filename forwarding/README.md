@@ -1,5 +1,15 @@
 # Forwarding
 
+## Forwarding without using template
+
+source: c++ templates: the complete guide L/3786
+
+see: forwarding_notemplate.cpp
+
+this is to demonstrate the concept only, also to show
+why using template is a good idea (to remove redundant
+code)
+
 ## Function Wrapper
 
 stuck on how to handle the return type, without using explicit template instantiation, e.g.
