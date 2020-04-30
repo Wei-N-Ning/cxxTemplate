@@ -14,3 +14,8 @@ add_test(NAME "traits::iterator-category" COMMAND traits_iterator_category)
 add_executable(traits_method_template_in_class_template methodTemplateInClassTemplate.cpp)
 target_link_libraries(traits_method_template_in_class_template PRIVATE doctest)
 add_test(NAME "traits::method-template-in-class-template" COMMAND traits_method_template_in_class_template)
+
+add_executable(traits_has_method_pattern has_method_pattern.cpp)
+target_link_libraries(traits_has_method_pattern PRIVATE doctest)
+add_test(NAME "traits::has-method-pattern" COMMAND traits_has_method_pattern)
+

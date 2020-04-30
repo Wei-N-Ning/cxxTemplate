@@ -21,6 +21,44 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
 
+// source: https://stackoverflow.com/questions/87372/check-if-a-class-has-a-member-function-of-a-given-signature
+// second answer with the highest vote
+#include <type_traits>
+
+// Primary template with a static assertion
+// for a meaningful error message
+// if it ever gets instantiated.
+// We could leave it undefined if we didn't care.
+
+template<typename, typename T>
+struct has_clone {
+    static_assert(
+            std::integral_constant<T, false>::value,
+            "Second template parameter needs to be of function type.");
+};
+
+// specialization that does the checking
+
+template<typename C, typename Ret, typename... Args>
+struct has_clone<C, Ret(Args...)> {
+private:
+    template<typename T>
+    static constexpr auto check(T*)
+    -> typename
+    std::is_same<
+            decltype( std::declval<T>().clone( std::declval<Args>()... ) ),
+            Ret    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    >::type;  // attempt to call it and see if the return type is correct
+
+    template<typename>
+    static constexpr std::false_type check(...);
+
+    typedef decltype(check<C>(0)) type;
+
+public:
+    static constexpr bool value = type::value;
+};
+
 // required method: T* T::clone() const
 
 // P31
@@ -43,8 +81,13 @@ public:
     static SUT* clone(const SUT* instance) { return instance->clone(); }
 };
 
+class X {};
+
 
 TEST_CASE ("test_has_function_trait()") {
     SUT c;
     CHECK_NE(&c, c.clone());
+
+    CHECK(has_clone<SUT, SUT*()>::value);
+    CHECK_FALSE(has_clone<X, X*()>::value);
 }
