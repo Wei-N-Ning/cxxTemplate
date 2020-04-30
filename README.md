@@ -1,5 +1,24 @@
 # Template Lang
 
+this project is heavily inspired by C++ templates: the complete guide.
+
+## Terminology
+
+prvalues
+
+temporary objects created on the fly or returned by another function
+prvalue non-copy optimization is required since C++17
+
+xvalue
+
+an existing non-constant object with std::move()
+
+decay
+
+when passing arguments to a parameter by value, the type decays. meaning that
+raw arrays get converted to pointers that qualifiers such as `const` or `volatile`
+are removed, just like using the value as initializer for an object with auto
+
 ## History
 
 source: c++ templates: the complete guide
