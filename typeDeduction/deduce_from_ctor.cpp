@@ -2,7 +2,6 @@
 // Created by wein on 25/04/20.
 //
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-
 #include "doctest/doctest.h"
 
 #include <utility>
