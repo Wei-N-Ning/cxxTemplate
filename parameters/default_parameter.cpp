@@ -18,9 +18,13 @@
 // c++ templates guide L/954
 // to support default function parameter, declare a default type
 // for the template parameter
+// complete guide L/7024
+// the parameters of template-template parameters can have default template args
+// these default args apply when the corresponding parameters are not specified
+// in uses of the template-template parameter
 template<
     typename T = int,
-    typename Alloc,
+    typename Alloc = std::allocator<T>,
     template<typename, typename> typename Container>
 T do_sum(const Container<T, Alloc> &xs, T init = 0) {
     std::string name =
