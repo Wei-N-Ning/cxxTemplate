@@ -20,4 +20,4 @@ add_test(NAME "deduction::deduce-type-param-from-ctor" COMMAND deduction_from_co
 
 add_executable(deduction_typeid typeid.cpp)
 target_link_libraries(deduction_typeid PRIVATE doctest)
-add_test(NAME "deduction::typeid()" COMMAND deduction_typeid)
+add_test(NAME "deduction::typeid-and-typeinfo" COMMAND deduction_typeid)
