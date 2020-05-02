@@ -19,4 +19,8 @@ struct ArgList {
 
 TEST_CASE ("") {
     ArgList<int, char, char>::Vals<3, 'x', 'y'> v;
+    // ^^^ type level          ^^^ term/data level
+    using TypeLevel = ArgList<int, char, char>;
+    using TermLevel = TypeLevel::Vals<3, 'x', 'y'>;
+    TermLevel x;
 }
