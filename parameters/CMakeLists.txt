@@ -17,3 +17,7 @@ add_test(NAME "param::fixed-size-stack" COMMAND param_fixed_size_stack)
 add_executable(param_nested_variadic nested_variadic.cpp)
 target_link_libraries(param_nested_variadic PRIVATE doctest)
 add_test(NAME "param::nested-variadic" COMMAND param_nested_variadic)
+
+add_executable(param_variadic_fold variadic_fold.cpp)
+target_link_libraries(param_variadic_fold PRIVATE doctest)
+add_test(NAME "param::variadic-fold" COMMAND param_variadic_fold)
