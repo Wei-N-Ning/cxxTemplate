@@ -25,3 +25,7 @@ add_test(NAME "typing::typeid-and-typeinfo" COMMAND typing_typeid)
 add_executable(typing_phantom_types phantom_types.cpp)
 target_link_libraries(typing_phantom_types PRIVATE doctest)
 add_test(NAME "typing::phantom-types" COMMAND typing_phantom_types)
+
+add_executable(typing_deduce_from_func_arg deduce_from_func_arg.cpp)
+target_link_libraries(typing_deduce_from_func_arg PRIVATE doctest)
+add_test(NAME "typing::deduce-from-func-arg" COMMAND typing_deduce_from_func_arg)
