@@ -12,8 +12,20 @@
 // (value op .. op pack)
 
 // NOTE:
-// op can not be a function that takes two arguments;
-// I have to write a recursive function and handle the base case properly
+// see also variadic_match_many/insert_many.cpp for how to use an
+// arbitrary function with the l-fold or r-fold idiom
+// if I look at Ts... args with my haskell glasses, it looks like the classic (x:xs)
+// and the parameter pack fold becomes:
+// f x op fold xs
+// f: is the arbitrary function that may take other arguments not part of the
+//    parameter pack
+// x: is the head
+// fold xs: is the recursion:
+// fold (hd:tl)
+// f hd op fold tl
+// NOTE: op can be `,` the comma operator, meaning that "I don't want to reduce
+// any results but process multiple actions of the same kind"
+// see variadic_insert_many.cpp for the multi-push-back example
 
 template<typename F, typename B, typename A, typename... Ts>
 B left_accumulate(F f, const B &init, const A &a, Ts... xs) {

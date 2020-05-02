@@ -21,3 +21,15 @@ add_test(NAME "param::nested-variadic" COMMAND param_nested_variadic)
 add_executable(param_variadic_fold variadic_fold.cpp)
 target_link_libraries(param_variadic_fold PRIVATE doctest)
 add_test(NAME "param::variadic-fold" COMMAND param_variadic_fold)
+
+add_executable(param_variadic_match_many variadic_match_many.cpp)
+target_link_libraries(param_variadic_match_many PRIVATE doctest)
+add_test(NAME "param::variadic-match-many" COMMAND param_variadic_match_many)
+
+add_executable(param_variadic_insert_many variadic_insert_many.cpp)
+target_link_libraries(param_variadic_insert_many PRIVATE doctest)
+add_test(NAME "param::variadic-insert-many" COMMAND param_variadic_insert_many)
+
+add_executable(param_variadic_in_range variadic_in_range.cpp)
+target_link_libraries(param_variadic_in_range PRIVATE doctest)
+add_test(NAME "param::variadic-in-range" COMMAND param_variadic_in_range)
