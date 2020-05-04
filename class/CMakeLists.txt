@@ -21,3 +21,8 @@ add_test(NAME "class::template-base-class" COMMAND class_template_base)
 add_executable(class_data_member_template data_member_template.cpp)
 target_link_libraries(class_data_member_template PRIVATE doctest)
 add_test(NAME "class::data-member-template" COMMAND class_data_member_template)
+
+add_executable(class_recursive_template recur_class_template.cpp)
+target_link_libraries(class_recursive_template PRIVATE doctest)
+add_test(NAME "class::recursive-class-template" COMMAND class_recursive_template)
+
