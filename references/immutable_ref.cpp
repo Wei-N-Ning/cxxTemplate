@@ -10,6 +10,7 @@
 #include <string>
 #include <algorithm>
 #include <iterator>
+#include <functional>
 
 // inspired by mut_reference.cpp and c++ stl cookbook (the original problem)
 // to prove that, with safe_find() mechanism which returns a wrapper of a reference,
