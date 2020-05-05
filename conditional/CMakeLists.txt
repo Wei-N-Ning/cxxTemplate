@@ -17,3 +17,7 @@ add_test(NAME "conditional::constexpr-if" COMMAND conditional_constexpr_if)
 add_executable(conditional_template conditional_t.cpp)
 target_link_libraries(conditional_template PRIVATE doctest)
 add_test(NAME "conditional::template" COMMAND conditional_template)
+
+add_executable(conditional_is_base_of is_base_of.cpp)
+target_link_libraries(conditional_is_base_of PRIVATE doctest)
+add_test(NAME "conditional::is-base-of" COMMAND conditional_is_base_of)

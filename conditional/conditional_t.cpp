@@ -12,7 +12,7 @@
 #include <iterator>
 
 // inspired by master c++ stl P/29
-// 
+//
 
 template<std::size_t Size, typename Elem>
 class Container {
