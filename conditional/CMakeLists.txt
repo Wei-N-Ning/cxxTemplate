@@ -13,3 +13,7 @@ add_test(NAME "conditional::is-constructible" COMMAND conditional_is_constructib
 add_executable(conditional_constexpr_if constexpr_if.cpp)
 target_link_libraries(conditional_constexpr_if PRIVATE doctest)
 add_test(NAME "conditional::constexpr-if" COMMAND conditional_constexpr_if)
+
+add_executable(conditional_template conditional_t.cpp)
+target_link_libraries(conditional_template PRIVATE doctest)
+add_test(NAME "conditional::template" COMMAND conditional_template)
