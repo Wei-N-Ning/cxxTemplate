@@ -33,3 +33,7 @@ add_test(NAME "param::variadic-insert-many" COMMAND param_variadic_insert_many)
 add_executable(param_variadic_in_range variadic_in_range.cpp)
 target_link_libraries(param_variadic_in_range PRIVATE doctest)
 add_test(NAME "param::variadic-in-range" COMMAND param_variadic_in_range)
+
+add_executable(param_variadic_istream_tuple variadic_istream_tuple.cpp)
+target_link_libraries(param_variadic_istream_tuple PRIVATE doctest)
+add_test(NAME "param::variadic-istream-for-tuple" COMMAND param_variadic_istream_tuple)

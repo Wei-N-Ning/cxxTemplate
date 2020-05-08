@@ -17,4 +17,10 @@ see fixed_size_stack.cpp for complete walk through.
 
 C++ templates: complete guide L2530
 
-see variadic.cpp 
+see variadic.cpp
+
+### Variadic function call that works with ANY function 
+
+i.e. implementing f(xs) ... which the standard does not provide
+
+see: variadic_istream_tuple.cpp
