@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 project(C++Template)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -22,3 +22,4 @@ add_subdirectory(decay)
 add_subdirectory(conditional)
 add_subdirectory(constness)
 add_subdirectory(references)
+add_subdirectory(concept)
