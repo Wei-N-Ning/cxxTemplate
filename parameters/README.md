@@ -2,6 +2,16 @@
 
 recall Haskell's type parameter and type-driven development
 
+## Pretty-print function sig
+
+introduced in modern c++ programming cookbook L3280
+
+> by adding a `std::cout << __PRETTY_FUNCTION__ << std::endl;` at the beginning
+> of the functions we wrote, we get the following:
+
+if I need to see **the fully instantiated form of a function template**, stick this
+magic print statement inside the template
+
 ## Non-type parameters
 
 C++ templates: complete guide L/2211

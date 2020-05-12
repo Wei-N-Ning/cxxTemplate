@@ -29,26 +29,31 @@
 
 template<typename F, typename B, typename A, typename... Ts>
 B left_accumulate(F f, const B &init, const A &a, Ts... xs) {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return init + left_accumulate(f, a, xs...);
 }
 
 template<typename F, typename B, typename A>
 B left_accumulate(F f, const B &init, const A &a) {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return f(init, a);
 }
 
 template<typename F, typename B, typename A, typename... Ts>
 B right_accumulate(F f, const B &init, const A &a, Ts... xs) {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return right_accumulate(f, f(a, init), xs...);
 }
 
 template<typename F, typename B, typename A>
 B right_accumulate(F f, const B &init, const A &a) {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return f(a, init);
 }
 
 template<typename F, typename B, typename A, typename... Ts>
 B left_fold(F f, const B &init, const A &a, Ts... xs) {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     return ((init + a) + ... + xs);
 }
 
