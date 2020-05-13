@@ -26,6 +26,8 @@
 // NOTE: op can be `,` the comma operator, meaning that "I don't want to reduce
 // any results but process multiple actions of the same kind"
 // see variadic_insert_many.cpp for the multi-push-back example
+// see also: modern c++ programming cookbook L3261
+// it also uses the head..tail terminology to express the argument expansion
 
 template<typename F, typename B, typename A, typename... Ts>
 B left_accumulate(F f, const B &init, const A &a, Ts... xs) {
@@ -50,6 +52,23 @@ B right_accumulate(F f, const B &init, const A &a) {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     return f(a, init);
 }
+
+// see: modern c++ programming cookbook L3346
+// left folding
+// unary form: (... op pack)
+//  (pack1 op pack2) op ...) op packn
+// binary form: (init op ... op pack)
+//  (((init op pack1) op pack2) op ...) op packn
+// right folding
+// unary form: (pack op ...);
+//  pack1 op (... op(packn-1 op packn))
+// binary form: (pack op ... op init);
+//  pack1 op (... op (packn-1 op (packn op init)))
+
+// L3393
+// fold expressions work with all overloads for the supported binary operators,
+// but DO NOT WORK WITH ARBITRARY BINARY FUNCTIONS
+// workaround is to use a wrapper type
 
 template<typename F, typename B, typename A, typename... Ts>
 B left_fold(F f, const B &init, const A &a, Ts... xs) {

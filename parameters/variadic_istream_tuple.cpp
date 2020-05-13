@@ -36,11 +36,24 @@ void do_print(std::ostream &os, const X &x, const Xs &...xs) {
     };
 }
 
+// this works too
+template<typename ... Xs>
+void print_(std::ostream &os, const Xs &... xs) {
+    std::cout << __PRETTY_FUNCTION__  << std::endl;
+    (void)std::initializer_list<int>{
+        ((os << "" <<xs), 0)...
+    };
+}
+
 template<typename... Ts>
 std::ostream &operator<<(std::ostream &os, const std::tuple<Ts...> &tu) {
     auto prt = [&os](const auto &... xs) {
-        do_print(os, xs...);
+        print_(os, xs...);
     };
+    // std::apply works with tuple:
+    // https://en.cppreference.com/w/cpp/utility/apply
+    // template <class F, class Tuple>
+    // constexpr decltype(auto) apply(F&& f, Tuple&& t);
     std::apply(prt, tu);
     return os;
 }
