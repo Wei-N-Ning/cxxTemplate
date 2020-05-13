@@ -4,6 +4,14 @@
 
 see: <https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper>
 
+
+## Use value-semantic with reference
+
+see: cxxConcurrency/stdthread/pass_arguments.cpp
+
+thread ctor takes function argument by value, how can I execute a function
+that expects pass-by-reference? use `std::ref` (or `std::cref` if immutable)
+
 ## Reference Wrapper and Optional
 
 ## std::ref
