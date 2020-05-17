@@ -41,3 +41,8 @@ add_test(NAME "predicates::has-all-methods" COMMAND predicates_has_all_methods)
 add_executable(predicates_is_nonthrowing is_nonthrowing.cpp)
 target_link_libraries(predicates_is_nonthrowing PRIVATE doctest)
 add_test(NAME "predicates::is-nonthrowing" COMMAND predicates_is_nonthrowing)
+
+add_executable(predicates_is_primitive_type is_primitive_type.cpp)
+target_link_libraries(predicates_is_primitive_type PRIVATE doctest)
+add_test(NAME "predicates::is-primitive-type" COMMAND predicates_is_primitive_type)
+
