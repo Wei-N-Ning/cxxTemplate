@@ -10,6 +10,22 @@
 #include <utility>
 
 // c++ template: complete guide L15162
+// note: based on the example in the book and some previously documented patterns
+// in /traits, I added a couple of new examples showing how to implement predicate
+// to check whether a member function exists
+// it is very complicated, because I have to account for the type signature of
+// the function - its arguments, return type etc.
+// it might be better to use simpler dispatching mechanism (such as adding some
+// tags to the input types) or std::variant's patten matching
+
+// L15195
+// also beware: a reference type has no member, but whenever we use references
+// the resulting expressions have the underlying type
+// as a workaround, use std::remove_reference
+// L15264
+// detecting nontype members
+// this is the ultimate workaround (based on macro) to check whether a method
+// exists
 
 // helper to ignore any member of template parameters
 template<typename...>
@@ -56,6 +72,15 @@ template<typename, typename = VoidT<>>
 struct has_size_func : std::false_type {};
 
 // "concept requirement", note the use of decltype and is_same_v
+//
+// what if I don't care the return type?
+// L15330, the example in the book answers this:
+//
+// std::void_t<decltype(std::declval<T>().begin())>>
+// pluggin it into the predicate:
+//
+// struct HasBeginT<T, std::void_t<decltype(std::declval<T>().begin())>>>
+// : std::true_type {}
 template<typename T>
 using HasSize = std::enable_if_t<std::is_same_v<decltype(std::declval<T>().size()), std::size_t>>;
 

@@ -2,6 +2,9 @@
 
 ## Has XX Method
 
+**ultimate workaround**: see complete guide L15295 for a macro-based solution
+that works for any data/function member
+
 Note there is an older example pieced together from web findings; 
 see has_method_trait.cpp
 
