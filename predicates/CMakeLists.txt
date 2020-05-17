@@ -33,3 +33,7 @@ add_test(NAME "predicates::has-member" COMMAND predicates_has_member)
 add_executable(predicates_is_legit_expression is_legit_expression.cpp)
 target_link_libraries(predicates_is_legit_expression PRIVATE doctest)
 add_test(NAME "predicates::is-legit-expression" COMMAND predicates_is_legit_expression)
+
+add_executable(predicates_has_all_methods has_all_methods.cpp)
+target_link_libraries(predicates_has_all_methods PRIVATE doctest)
+add_test(NAME "predicates::has-all-methods" COMMAND predicates_has_all_methods)

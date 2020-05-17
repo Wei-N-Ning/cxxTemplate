@@ -9,6 +9,8 @@
 #include <type_traits>
 
 // c++ template: complete guide L15330
+// (this is a continuation from ./has_member.cpp, which introduces a technique
+// to express the member requirement in the form of a class template)
 // use the technique for other kinds of expressions and even combine multiple
 // expressions, for example we can test whether given T1 and T2, there is a
 // suitable < operator defined

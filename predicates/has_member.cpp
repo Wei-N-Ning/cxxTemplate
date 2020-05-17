@@ -27,6 +27,9 @@
 // this is the ultimate workaround (based on macro) to check whether a method
 // exists
 
+// see also: has_all_methods.cpp, which formalize the method requirement and
+// extend it to multiple methods
+
 // helper to ignore any member of template parameters
 template<typename...>
 using VoidT = void;
