@@ -59,3 +59,56 @@ TEST_CASE ("") {
         CHECK_EQ(1, elem);
     }
 }
+
+// c++ template: complete guide L15605
+// using std::conditional_t to implement a safe make_unsigned trait
+// L15543
+// the instantiation of UnsignedT<bool> is still undefined behavior because
+// the compiler will still attempt to form the type form:
+// typename std::make_unsigned<T>::type
+// to address this problem, we need to add an additional level of indirection
+// so that the conditional_t<> arguments are themselves uses of type
+// functions that wrap the result
+template<typename T>
+struct IdentityT {
+    using Type = T;
+};
+
+template<typename T>
+struct MakeUnsignedT {
+    using Type = typename std::make_unsigned<T>::type;
+};
+
+template<typename T>
+struct UnsignedT {
+    using Type =
+        typename std::conditional_t<
+            std::is_integral_v<T> && !std::is_same_v<T, bool>,
+            MakeUnsignedT<T>,
+            IdentityT<T>
+        >::Type;  // ::Type is guaranteed to work
+        // this relies entirely on the fact that the not-selected wrapper type
+        // in the conditional_t<> construct is never fully instantiated
+        // (meaning that, ::Type won't work inside the parameter list)
+};
+
+template<typename T>
+using to_unsigned = typename UnsignedT<T>::Type;
+
+TEST_CASE ("") {
+    static_assert(
+        std::is_same_v<unsigned int, to_unsigned<int>>
+        );
+
+    static_assert(
+        std::is_same_v<unsigned char, to_unsigned<char>>
+    );
+
+    static_assert(
+        std::is_same_v<bool, to_unsigned<bool>>
+    );
+
+    static_assert(
+        std::is_same_v<std::vector<int>, to_unsigned<std::vector<int>>>
+    );
+}
