@@ -19,3 +19,12 @@ add_executable(traits_has_method_pattern has_method_pattern.cpp)
 target_link_libraries(traits_has_method_pattern PRIVATE doctest)
 add_test(NAME "traits::has-method-pattern" COMMAND traits_has_method_pattern)
 
+add_executable(traits_result_type result_type_trait.cpp)
+target_link_libraries(traits_result_type PRIVATE doctest)
+add_test(NAME "traits::result-type" COMMAND traits_result_type)
+
+add_executable(traits_declval declval.cpp)
+target_link_libraries(traits_declval PRIVATE doctest)
+add_test(NAME "traits::declval" COMMAND traits_declval)
+
+

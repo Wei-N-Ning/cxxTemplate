@@ -8,3 +8,16 @@ see has_method_trait.cpp
 Complete guide L5157 introduces a **pattern**, using the "has size() member function"
 as a demonstration.
 see has_method_pattern.cpp
+
+## Infer result type
+
+what is the result type of Container<T1> op Container<T2> ?
+
+in haskell this is determined by the type signature of the operator:
+
+```haskell
+f: a -> b -> b
+-- or
+f: a -> a -> a
+```
+
