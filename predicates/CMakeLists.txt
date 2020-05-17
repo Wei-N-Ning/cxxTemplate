@@ -29,3 +29,7 @@ add_test(NAME "predicates::sfinae-if-not" COMMAND predicates_sfinae_if_not)
 add_executable(predicates_has_member has_member.cpp)
 target_link_libraries(predicates_has_member PRIVATE doctest)
 add_test(NAME "predicates::has-member" COMMAND predicates_has_member)
+
+add_executable(predicates_is_legit_expression is_legit_expression.cpp)
+target_link_libraries(predicates_is_legit_expression PRIVATE doctest)
+add_test(NAME "predicates::is-legit-expression" COMMAND predicates_is_legit_expression)
