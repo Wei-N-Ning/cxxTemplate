@@ -21,3 +21,11 @@ add_test(NAME "predicates::template" COMMAND predicates_template)
 add_executable(predicates_is_base_of is_base_of.cpp)
 target_link_libraries(predicates_is_base_of PRIVATE doctest)
 add_test(NAME "predicates::is-base-of" COMMAND predicates_is_base_of)
+
+add_executable(predicates_sfinae_if_not sfinae_if_not.cpp)
+target_link_libraries(predicates_sfinae_if_not PRIVATE doctest)
+add_test(NAME "predicates::sfinae-if-not" COMMAND predicates_sfinae_if_not)
+
+add_executable(predicates_has_member has_member.cpp)
+target_link_libraries(predicates_has_member PRIVATE doctest)
+add_test(NAME "predicates::has-member" COMMAND predicates_has_member)

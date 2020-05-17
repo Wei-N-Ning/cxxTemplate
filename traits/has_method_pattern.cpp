@@ -21,8 +21,18 @@
 // the cast of the expression to void is to avoid the possibility of a user-
 // defined comma operator overloaded for the type of the expression
 // NOTE: this pattern does not check whether t.size() really returns T::size_type
+
+// UPDATE:
+// on L15152, when explaining the SFINAE-based trait algorithms, it shows again
+// how to implement a "has-member-x" validation mechanism.
+// for the sake of clarity I put all the examples in /predicates
 template<typename T>
-auto len(const T &t) -> decltype( (void)(t.size()), (void)(t.empty()), typename T::size_type() ) {
+auto len(const T &t)
+-> decltype(
+    (void)(t.size()),
+    (void)(t.empty()),
+    typename T::size_type()
+) {
     return t.size();
 }
 
