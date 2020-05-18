@@ -21,4 +21,15 @@ c++ template: complete guide L16387
 (if the partial-specialization technique leads to double definition, use tag 
 dispatching)
 
-see: advance_iter.cpp
+see: iter_category.cpp
+
+L16481
+
+> tag dispatching works well when there is a natural hierarchical structure to
+> the properties used by the algorithm and an existing set of traits that 
+> provide those tag values
+> it is not as convenient when algorithm specialization depends on ad hoc type
+> properties, such as whether the type T has a trivial copy assignment op
+
+
+
