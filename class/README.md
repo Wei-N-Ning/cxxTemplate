@@ -23,3 +23,18 @@ how to express the concept constraints in C++17
 > static_assert keyword and some predefined type traits
 
 see stack.cpp for a live example
+
+## Empty Class Optimization
+
+## Curious Recurring Template Pattern (CRTP)
+
+c++ template: complete guide L17299
+
+see: curious_recurring_template.cpp
+
+> by passing the derived class down to its base class via a template parameter
+> the base class can customize its own behavior to the derived class without
+> requiring the use of virtual functions
+> this makes CRTP useful to factor out impl that can only be member functions
+> ctor, detor and subscript operators, or are dependent on the derived class's
+> identity

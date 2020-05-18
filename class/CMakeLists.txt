@@ -26,3 +26,12 @@ add_executable(class_recursive_template recur_class_template.cpp)
 target_link_libraries(class_recursive_template PRIVATE doctest)
 add_test(NAME "class::recursive-class-template" COMMAND class_recursive_template)
 
+add_executable(class_empty_class empty_class.cpp)
+target_link_libraries(class_empty_class PRIVATE doctest)
+add_test(NAME "class::empty-class" COMMAND class_empty_class)
+
+add_executable(class_curious_recurring_template curious_recurring_template.cpp)
+target_link_libraries(class_curious_recurring_template PRIVATE doctest)
+add_test(NAME "class::curious-recurring-template" COMMAND class_curious_recurring_template)
+
+
