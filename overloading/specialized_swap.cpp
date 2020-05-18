@@ -27,6 +27,8 @@ static int state = 0;
 template<typename T, std::size_t sz>
 void swap_(std::array<T, sz> &x, std::array<T, sz> &y) {
     x.swap(y);
+
+    // side effects
     state = 1;
 }
 
