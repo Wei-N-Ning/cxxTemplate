@@ -12,3 +12,17 @@ I found another post from Microsoft that made more sense:
 
 > Here are two of the most common cases for deduction guides in the STL: 
 > iterators and perfect forwarding.
+
+## Type Metaprogramming (type-driven)
+
+see: c++ template: complete guide L18381
+
+L18612
+
+> a comprehensive metaprogramming solution for C++ must make choices along three
+> dimensions
+> computation
+> reflection
+> generation
+
+
