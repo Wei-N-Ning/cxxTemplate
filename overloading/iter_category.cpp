@@ -10,7 +10,8 @@
 
 // inspired by c++ template: complete guide L/16466
 // also curious to see how std::iterator_traits<> is implemented,
-// here is me replicating the impl and showing tag-dispatching
+// here is me replicating the mechanism of std::iterator_traits<> and
+// showing how tag-dispatching can be built on top of it
 
 struct Forward {};
 struct Random{};
