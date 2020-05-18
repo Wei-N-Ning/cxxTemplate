@@ -13,7 +13,14 @@ TEST_CASE ("lambda") {
             }
             return result;
         };
+    // c++ template: complete guide L18033
+    // lambda can be converted to a std::function<> object, to be
+    // used with value semantics
+    // std::function<> is a generalized form of a C++ function pointer, providing
+    // the same fundamental operations
+    const std::function<double(std::vector<double>)> f = func;
     CHECK_EQ(3, func({1, 2}));
+    CHECK_EQ(3, f({1, 2}));
 }
 
 // complete guide: L3433
