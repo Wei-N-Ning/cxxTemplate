@@ -49,3 +49,7 @@ add_test(NAME "typing::typelist-accumulate" COMMAND typing_typelist_accumulate)
 add_executable(typing_typelist_insertion_sort typelist_insertion_sort.cpp)
 target_link_libraries(typing_typelist_insertion_sort PRIVATE doctest)
 add_test(NAME "typing::typelist-insertion-sort" COMMAND typing_typelist_insertion_sort)
+
+add_executable(typing_ctvalue ctvalue.cpp)
+target_link_libraries(typing_ctvalue PRIVATE doctest)
+add_test(NAME "typing::ctvalue" COMMAND typing_ctvalue)
