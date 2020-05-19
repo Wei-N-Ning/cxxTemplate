@@ -75,19 +75,23 @@ struct Identity {
     using Type = T;
 };
 
+// inserts a value into an already sorted list at the first point that
+// will keep the list sorted
+// to decide whether the element to be inserted should go at the beginning
+// of the list or later in the list
 template<typename List,
     template<typename T1, typename T2> typename Compare,
     typename Element>
 struct InsertSortT<List, Compare, Element, false> {
     using NewTail = typename std::conditional_t<
         Compare<Element, Front<List>>::value,
-        Identity<List>,
-        InsertSortT<PopFront<List>, Compare, Element>
+        Identity<List>,  // Element > Head
+        InsertSortT<PopFront<List>, Compare, Element>  // Element < Head
     >::Type;
     using NewHead = std::conditional_t<
         Compare<Element, Front<List>>::value,
-        Element,
-        Front<List>
+        Element,  // Element > Head
+        Front<List>  // Element < Head
     >;
     using Type = PushFront<NewTail, NewHead>;
 };
