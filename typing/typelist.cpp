@@ -37,7 +37,20 @@ public:
 template<typename List>
 using PopFront = typename PopFrontT<List>::Type;
 
+template<typename List, typename NewElement>
+class PushFrontT;
+
+template<typename... Elements, typename NewElement>
+class PushFrontT<TypeList<Elements...>, NewElement> {
+public:
+    using Type = TypeList<NewElement, Elements...>;
+};
+
+template<typename List, typename NewElement>
+using PushFront = typename PushFrontT<List, NewElement>::Type;
+
 TEST_CASE ("") {
     static_assert(std::is_same_v<Front<SignedIntTypes>, signed char>);
     static_assert(std::is_same_v<Front<PopFront<SignedIntTypes>>, short>);
+    static_assert(std::is_same_v<Front<PushFront<SignedIntTypes, char>>, char>);
 }
