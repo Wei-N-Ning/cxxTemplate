@@ -33,3 +33,8 @@ add_test(NAME "typing::deduce-from-func-arg" COMMAND typing_deduce_from_func_arg
 add_executable(typing_type_function type_function.cpp)
 target_link_libraries(typing_type_function PRIVATE doctest)
 add_test(NAME "typing::type-function" COMMAND typing_type_function)
+
+add_executable(typing_typelist typelist.cpp)
+target_link_libraries(typing_typelist PRIVATE doctest)
+add_test(NAME "typing::typelist" COMMAND typing_typelist)
+
