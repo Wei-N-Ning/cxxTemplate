@@ -50,6 +50,9 @@ template<typename... Elements, typename NewElement>
 class PushFrontT<TypeList<Elements...>, NewElement> {
 public:
     using Type = TypeList<NewElement, Elements...>;
+
+    // pushback:
+    // using Type = TypeList<Elements..., NewElement>;
 };
 
 template<typename List, typename NewElement>
@@ -68,14 +71,28 @@ struct NthElementT<List, 0> : public FrontT<List> {};
 template<typename List, unsigned N>
 using NthElement = typename NthElementT<List, N>::Type;
 
+// c++ template: complete guide L19109
+// using IsEmpty, we can implement LargestType so that it works equally well
+// for any typelist that implements Front, PopFront and IsEmpty
+// instead of explicitly refer to TypeList<> in the recursive base case
+template<typename List>
+struct IsEmpty {
+    static constexpr bool value = false;
+};
+
+template<>
+struct IsEmpty<TypeList<>> {
+    static constexpr bool value = true;
+};
+
 // c++ template: complete guide L19063
 // finding the largest type within the typelist
-template<typename List>
+template<typename List, bool Empty = IsEmpty<List>::value>
 struct LargestTypeT;
 
 // recursive case
 template<typename List>
-struct LargestTypeT {
+struct LargestTypeT<List, false> {
     using First = Front<List>;
     using Rest = typename LargestTypeT<PopFront<List>>::Type;
     using Type =
@@ -83,13 +100,49 @@ struct LargestTypeT {
 };
 
 // base case
-template<>
-struct LargestTypeT<TypeList<>> {
+template<typename List>
+struct LargestTypeT<List, true> {
     using Type = char;
 };
 
 template<typename List>
 using LargestType = typename LargestTypeT<List>::Type;
+
+// c++ templates: complete guide L19187
+// recursive pushback
+template<typename List, typename NewElement, bool Empty = IsEmpty<List>::value>
+struct PushBackT;
+
+template<typename List, typename NewElement>
+struct PushBackT<List, NewElement, false> {
+    using Head = Front<List>;
+    using Tail = PopFront<List>;
+    using NewTail = typename PushBackT<Tail, NewElement>::Type;
+    using Type = PushFront<NewTail, Head>;
+};
+
+template<typename List, typename NewElement>
+struct PushBackT<List, NewElement, true> {
+    using Type = PushFront<List, NewElement>;
+};
+
+// c++ template: complete guide L19239
+// reversing a typelist
+template<typename List, bool Empty = IsEmpty<List>::value>
+struct ReverseT;
+
+template<typename List>
+struct ReverseT<List, false> {
+    using Head = Front<List>;
+    using Tail = PopFront<List>;
+    using RevTail = typename ReverseT<Tail>::Type;
+    using Type = typename PushBackT<RevTail, Head>::Type;
+};
+
+template<typename List>
+struct ReverseT<List, true> {
+    using Type = List;
+};
 
 TEST_CASE ("push pop") {
     static_assert(std::is_same_v<Front<SignedIntTypes>, signed char>);
@@ -106,5 +159,23 @@ TEST_CASE ("indexing") {
 TEST_CASE ("largest type") {
     static_assert(
         std::is_same_v<long long, LargestType<SignedIntTypes>>
+    );
+}
+
+TEST_CASE ("push back (recursive)") {
+    static_assert(
+        std::is_same_v<
+            TypeList<int, char, short>,
+            PushBackT<TypeList<int, char>, short>::Type
+        >
+    );
+}
+
+TEST_CASE ("reverse") {
+    static_assert(
+        std::is_same_v<
+            TypeList<long long, int, short, signed char>,
+            ReverseT<SignedIntTypes>::Type
+        >
     );
 }
