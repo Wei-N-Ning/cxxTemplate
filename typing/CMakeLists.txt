@@ -62,3 +62,6 @@ add_executable(typing_pack_expansion pack_expansion.cpp)
 target_link_libraries(typing_pack_expansion PRIVATE doctest)
 add_test(NAME "typing::pack-expansion" COMMAND typing_pack_expansion)
 
+add_executable(typing_cons_list cons_list.cpp)
+target_link_libraries(typing_cons_list PRIVATE doctest)
+add_test(NAME "typing::cons-list" COMMAND typing_cons_list)

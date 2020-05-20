@@ -46,6 +46,17 @@ struct AddConstT {
     using Type = const T;
 };
 
+template<auto... Values>
+struct ValueList {};
+
+template<typename List, typename Indices>
+struct SelectT;
+
+// TODO: implement it
+template<typename List, unsigned... Indices>
+struct SelectT<List, ValueList<Indices...>> {
+};
+
 TEST_CASE ("") {
     using TL = TypeList<char, int>;
     using TLconst = TransformT<TL, AddConstT>::Type;
