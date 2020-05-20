@@ -13,6 +13,11 @@
 // L19533
 // using CTValue template, we can express a typelist containing integer values
 
+// c++ template: complete guide L20697
+// 42_c yields CTValue<int, 42>
+// see Boost.Hana, a metaprogramming library suited for computations on both
+// types and values
+
 template<typename T, T Value>
 struct CTValue {
     static constexpr T value = Value;
