@@ -48,7 +48,11 @@ private:
     std::is_same<
             decltype( std::declval<T>().clone( std::declval<Args>()... ) ),
             Ret    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    >::type;  // attempt to call it and see if the return type is correct
+    >::type;  // decltype( EXPR ) returns the type of the EXPR;
+
+    // if EXPR does not make sense to the compiler - i.e. clone() method does
+    // not exist - or its type is different to Ret, this static check will
+    // fail and the template will not be instantiated. SFINAE
 
     template<typename>
     static constexpr std::false_type check(...);
