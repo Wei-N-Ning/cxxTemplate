@@ -18,37 +18,39 @@
 
 #include <type_traits>
 
-template<typename ValueT, int _Rows>
-class SUT {
+template< typename ValueT, int _Rows >
+class SUT
+{
 public:
     ValueT v;
     static const int rows = _Rows;
 
-    template<typename T0, typename T1>
-    SUT(const T0& arg1, const T1& arg2)
-        : v(static_cast<ValueT>(arg1 + arg2)) {
-    };
+    template< typename T0, typename T1 >
+    SUT( const T0& arg1, const T1& arg2 )
+      : v( static_cast< ValueT >( arg1 + arg2 ) ){};
 
-    template<typename T0, typename T1>
-    void foo(const ValueT& v) {
-        static_assert(std::is_same<int, T0>::value, "");
-        static_assert(std::is_same<int, T1>::value, "");
+    template< typename T0, typename T1 >
+    void foo( const ValueT& v )
+    {
+        static_assert( std::is_same< int, T0 >::value );
+        static_assert( std::is_same< int, T1 >::value );
         this->v = v;
     }
 };
 
-TEST_CASE ("") {
-    typedef SUT<int, 3> MySut;
-    static_assert(3 == MySut::rows, "");
+TEST_CASE( "deduction" )
+{
+    typedef SUT< int, 3 > MySut;
+    static_assert( 3 == MySut::rows );
 
     // T0, T1 are deduced from parameters
-    MySut mySut(23.1, 2);
-    CHECK_EQ(25, mySut.v);
+    MySut mySut( 23.1, 2 );
+    CHECK_EQ( 25, mySut.v );
 
     // T0, T1 are explicitly defined by the caller
     // this can not happen in the ctor
-    mySut.foo<int, int>(1213);
-    CHECK_EQ(1213, mySut.v);
+    mySut.foo< int, int >( 1213 );
+    CHECK_EQ( 1213, mySut.v );
 
     // this won't compile
     // no matching function for call to ‘SUT<int, 3>::foo(int)’
