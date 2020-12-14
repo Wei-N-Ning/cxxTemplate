@@ -3,6 +3,7 @@ add_subdirectory(predicates)
 add_subdirectory(parampack)
 add_subdirectory(conslist)
 add_subdirectory(properties)
+add_subdirectory(debugging)
 
 add_executable(tlf_declval declval.cpp)
 target_link_libraries(tlf_declval PRIVATE doctest)
