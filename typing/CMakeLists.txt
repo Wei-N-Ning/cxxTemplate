@@ -27,7 +27,3 @@ add_test(NAME "typing::type-function" COMMAND typing_type_function)
 add_executable(typing_pack_expansion pack_expansion.cpp)
 target_link_libraries(typing_pack_expansion PRIVATE doctest)
 add_test(NAME "typing::pack-expansion" COMMAND typing_pack_expansion)
-
-add_executable(typing_type_probing type_probing.cpp)
-target_link_libraries(typing_type_probing PRIVATE doctest)
-add_test(NAME "typing::type_probing" COMMAND typing_type_probing)

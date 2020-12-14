@@ -17,3 +17,7 @@ add_test(NAME "tlf::properties::has-method" COMMAND tlf_properties_has_method)
 add_executable(tlf_properties_container_value_type container_value_type.cpp)
 target_link_libraries(tlf_properties_container_value_type PRIVATE doctest)
 add_test(NAME "tlf::properties::container_value_type" COMMAND tlf_properties_container_value_type)
+
+add_executable(typing_type_probing type_probing.cpp)
+target_link_libraries(typing_type_probing PRIVATE doctest)
+add_test(NAME "typing::type_probing" COMMAND typing_type_probing)
