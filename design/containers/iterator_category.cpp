@@ -5,6 +5,15 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
 
+// this example shows static (compile-time) dispatching
+// a better approach is to use pattern-match to design a generic algorithm with works
+// with type classes;
+// see iter_category_void_t.cpp
+// recap on pattern match:
+// case T of:
+//     void_t<some_property_of_T> -> ...
+//     _ -> ...
+
 #include <iterator>
 #include <list>
 #include <vector>

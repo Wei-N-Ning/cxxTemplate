@@ -22,7 +22,7 @@ how to express the concept constraints in C++17
 > since C+11 you can at least check for some basic constraints by using the
 > static_assert keyword and some predefined type traits
 
-see stack.cpp for a live example
+see stack.cpp for a value example
 
 ## Empty Class Optimization
 

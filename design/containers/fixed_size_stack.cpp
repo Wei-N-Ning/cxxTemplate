@@ -9,17 +9,23 @@
 #include <optional>
 
 // complete guide L2309,
+
+// use a simple stack template to demo the usage of type-level value param
+
 // can also specify that a template param is deduced from the previous param
 // or to ensure that the passed value has the same type as the passed type
 // template<typename T, T init = T{}>
-template< auto init, std::size_t Maxsize, typename T = decltype( init ) >
+
+template< auto initial_value,
+          std::size_t Maxsize,
+          typename T = decltype( initial_value ) >
 class Stack
 {
 public:
     Stack() = default;
     void fill()
     {
-        std::fill_n( elements.begin(), numElems = Maxsize, init );
+        std::fill_n( elements.begin(), numElems = Maxsize, initial_value );
     }
 
     std::optional< T > pop()
@@ -62,7 +68,7 @@ private:
 
 TEST_CASE( "fix-sized stack using std::optional" )
 {
-    Stack< 10, 2 > st;
+    Stack< 10, 2 > st; // initial value is 10, size is 2
     CHECK( st.push( 123 ).has_value() );
     CHECK_EQ( st.push( 234 ), 2 );
     CHECK_FALSE( st.push( 345 ).has_value() );
@@ -75,9 +81,10 @@ TEST_CASE( "fix-sized stack using std::optional" )
     st.fill();
     CHECK_EQ( st.top(), 10 );
 
-    // complete guide L2275: those two instances are different types,
+    // complete guide L2275: those two instances are different types, because size is
+    // a type-level parameter; different size results in different type instance.
     // there is NO implicit conversion defined
-    static_assert( !std::is_same_v< Stack< 1, 2 >, Stack< 1, 3 > >, "fail" );
+    static_assert( !std::is_same_v< Stack< 1, 2 >, Stack< 1, 3 > > );
 }
 
 // complete guide L2363

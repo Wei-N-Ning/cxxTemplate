@@ -7,6 +7,11 @@
 // the "method" is a function template in a class template, making it
 // harder to figure out the path of instantiation - i.e. how the
 // compiler deduces the types...
+// NOTE:
+// there are a couple of ways to check that:
+// use decltype (in combination of std::declval<>) to probe the type of the expression
+// use type-tester
+// write a lot of static_assert() inside the body
 
 // since the wt code base is C++98, the example here uses boost type_traits
 // and static assert instead of the standard library version
@@ -40,12 +45,14 @@ public:
 
 TEST_CASE( "deduction" )
 {
-    typedef SUT< int, 3 > MySut;
+    using MySut = SUT< int, 3 >;
     static_assert( 3 == MySut::rows );
 
     // T0, T1 are deduced from parameters
     MySut mySut( 23.1, 2 );
     CHECK_EQ( 25, mySut.v );
+    static_assert( std::is_same_v< decltype( MySut( 23.1, 2 ) ), SUT< int, 3 > > );
+    static_assert( std::is_same_v< decltype( mySut.v ), int > ); // ValueT is int, narrowing cast
 
     // T0, T1 are explicitly defined by the caller
     // this can not happen in the ctor
