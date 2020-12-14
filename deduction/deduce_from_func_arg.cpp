@@ -15,7 +15,7 @@ implicit_cast( const A& a )
     return a;
 }
 
-TEST_CASE( "" )
+TEST_CASE( "explicit and implicit deduction" )
 {
     CHECK_EQ( 1, implicit_cast< int >( 1.0 ) );
 }
