@@ -7,9 +7,9 @@ add_executable(forwarding_wrap_function wrap_function.cpp)
 target_link_libraries(forwarding_wrap_function PRIVATE doctest)
 add_test(NAME "forwarding::wrap-function" COMMAND forwarding_wrap_function)
 
-add_executable(forwarding_notemplate forwarding_notemplate.cpp)
-target_link_libraries(forwarding_notemplate PRIVATE doctest)
-add_test(NAME "forwarding::without-template" COMMAND forwarding_notemplate)
+add_executable(forwarding_motivation forward_motivation.cpp)
+target_link_libraries(forwarding_motivation PRIVATE doctest)
+add_test(NAME "forwarding::motivation_of_forwarding" COMMAND forwarding_motivation)
 
 add_executable(forwarding_variadic variadic.cpp)
 target_link_libraries(forwarding_variadic PRIVATE doctest)

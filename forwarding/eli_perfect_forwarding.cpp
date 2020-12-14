@@ -16,17 +16,21 @@
 #include <string>
 
 // to be painted by textures
-class Canvas {
+class Canvas
+{
 public:
     Canvas() = default;
-    Canvas(std::size_t width, std::size_t height)
-        : m_width(width), m_height(height) {};
+    Canvas( std::size_t width, std::size_t height )
+      : m_width( width )
+      , m_height( height ){};
+
 private:
     std::size_t m_width = 0;
     std::size_t m_height = 0;
 };
 
-struct Area {
+struct Area
+{
     std::size_t m_minX = 0;
     std::size_t m_maxX = 0;
     std::size_t m_minY = 0;
@@ -34,32 +38,44 @@ struct Area {
 };
 
 // to paint on an area (width on a canvas
-class Texture {
+class Texture
+{
 public:
     Texture() = delete;
 
-    Texture(Canvas canvas, Area area)
-    : m_canvas(canvas), m_area(area) {
+    Texture( Canvas canvas, Area area )
+      : m_canvas( canvas )
+      , m_area( area )
+    {
         actions += 'A';
     }
 
-    Texture(Texture&& other) noexcept
-    : m_canvas(other.m_canvas), m_area(other.m_area) {
+    Texture( Texture&& other ) noexcept
+      : m_canvas( other.m_canvas )
+      , m_area( other.m_area )
+    {
         actions += 'M';
     }
 
-    Texture(const Texture& other) noexcept
-        : m_canvas(other.m_canvas), m_area(other.m_area) {
+    Texture( const Texture& other ) noexcept
+      : m_canvas( other.m_canvas )
+      , m_area( other.m_area )
+    {
         actions += 'C';
     }
 
-    ~Texture() {
+    ~Texture()
+    {
         actions += 'D';
     }
 
-    Area& area() { return m_area; }
+    Area& area()
+    {
+        return m_area;
+    }
 
     static std::string actions;
+
 private:
     Canvas m_canvas;
     Area m_area;
@@ -67,9 +83,10 @@ private:
 
 std::string Texture::actions;
 
-TEST_CASE ("push_back()") {
-    std::vector<Texture> textures;
-    Canvas canvas(10, 10);
+TEST_CASE( "push_back()" )
+{
+    std::vector< Texture > textures;
+    Canvas canvas( 10, 10 );
 
     // Article
     // If you trace the execution... you will see something like:
@@ -80,14 +97,15 @@ TEST_CASE ("push_back()") {
     // > dtor for the temporary (D)
 
     Texture::actions.clear();
-    textures.push_back(Texture(canvas, Area()));
-    CHECK_EQ(std::string("AMD"), Texture::actions);
+    textures.push_back( Texture( canvas, Area() ) );
+    CHECK_EQ( std::string( "AMD" ), Texture::actions );
 }
 
-TEST_CASE ("emplace_back_alloc()") {
-    std::vector<Texture> textures;
-    Canvas canvas(10, 10);
-    textures.push_back(Texture(canvas, Area()));
+TEST_CASE( "emplace_back_alloc()" )
+{
+    std::vector< Texture > textures;
+    Canvas canvas( 10, 10 );
+    textures.push_back( Texture( canvas, Area() ) );
 
     // NOTE: vector needs to allocate new storage space for the newly
     // created element - this result in a different code path to the
@@ -99,21 +117,22 @@ TEST_CASE ("emplace_back_alloc()") {
     // addition space after ctor or push_back.
 
     Texture::actions.clear();
-    textures.emplace_back(canvas, Area{1, 1, 2, 2});
-    CHECK_EQ(std::string("AMD"), Texture::actions);
+    textures.emplace_back( canvas, Area{ 1, 1, 2, 2 } );
+    CHECK_EQ( std::string( "AMD" ), Texture::actions );
 }
 
-TEST_CASE ("emplace_back()") {
-    std::vector<Texture> textures;
-    Canvas canvas(10, 10);
-    textures.reserve(4);
+TEST_CASE( "emplace_back()" )
+{
+    std::vector< Texture > textures;
+    Canvas canvas( 10, 10 );
+    textures.reserve( 4 );
 
     // At this time, the storage space is enough for emplace-construction,
     // so the action sequence is reduced to a single call to the ctor
 
     Texture::actions.clear();
-    textures.emplace_back(canvas, Area{4, 5, 8, 9});
-    CHECK_EQ(std::string("A"), Texture::actions);
+    textures.emplace_back( canvas, Area{ 4, 5, 8, 9 } );
+    CHECK_EQ( std::string( "A" ), Texture::actions );
 }
 
 // Article
@@ -122,14 +141,18 @@ TEST_CASE ("emplace_back()") {
 // it forwards its parameters perfectly to some other function
 
 // to scale an area
-void func(Area& area, int s) {
-    area.m_maxX = area.m_minX + (area.m_maxX - area.m_minX) * s;
-    area.m_maxY = area.m_minY + (area.m_maxY - area.m_minY) * s;
+void
+func( Area& area, int s )
+{
+    area.m_maxX = area.m_minX + ( area.m_maxX - area.m_minX ) * s;
+    area.m_maxY = area.m_minY + ( area.m_maxY - area.m_minY ) * s;
 }
 
 // the const-area-ref version, this time scale is a mutable ref
-void func(const Area& area, int& s) {
-    s = static_cast<int>(area.m_maxX - area.m_minX);
+void
+func( const Area& area, int& s )
+{
+    s = static_cast< int >( area.m_maxX - area.m_minX );
 }
 
 // this will obviously not work if func accepts its parameters by
@@ -140,9 +163,11 @@ void func(const Area& area, int& s) {
 // template<typename... Args>
 // void wrapper(Args... args) { return func(args...); }
 
-template<typename... Args>
-void wrapper(Args&&... args) {
-    func(std::forward<Args>(args)...);
+template< typename... Args >
+void
+wrapper( Args&&... args )
+{
+    func( std::forward< Args >( args )... );
 }
 
 // rvalues can not be bound to function parameters that are references,
@@ -166,7 +191,8 @@ void wrapper(Args&&... args) {
 // value
 // rvalue-ref
 // all can be handled
-TEST_CASE ("") {
+TEST_CASE( "" )
+{
 
     /*
      *
@@ -186,7 +212,7 @@ TEST_CASE ("") {
     }
     */
 
-    Area area{4, 5, 4, 5};
+    Area area{ 4, 5, 4, 5 };
 
     // area is an lvalue, therefore it calls forward<Area&>()
     // Area& forward(Area& area) noexcept {
@@ -194,14 +220,14 @@ TEST_CASE ("") {
     // }
     // the func invoked is
     // void func(Area& area, int s)
-    wrapper(area, 4);
-    CHECK_EQ(area.m_maxX,  8);
-    CHECK_EQ(area.m_maxY, 8);
+    wrapper( area, 4 );
+    CHECK_EQ( area.m_maxX, 8 );
+    CHECK_EQ( area.m_maxY, 8 );
 
     int scale = 4;
     // area now is a rvalue, therefore it calls forward<Area>
     // the func invoked is
     // void func(const Area& area, int& s)
-    wrapper(Area{4, 5, 4, 5}, scale);
-    CHECK_EQ(scale, 1);
+    wrapper( Area{ 4, 5, 4, 5 }, scale );
+    CHECK_EQ( scale, 1 );
 }
