@@ -13,3 +13,7 @@ add_test(NAME "tlf::properties::has-method-pattern" COMMAND tlf_properties_has_m
 add_executable(tlf_properties_has_method has_method_trait.cpp)
 target_link_libraries(tlf_properties_has_method PRIVATE doctest)
 add_test(NAME "tlf::properties::has-method" COMMAND tlf_properties_has_method)
+
+add_executable(tlf_properties_container_value_type container_value_type.cpp)
+target_link_libraries(tlf_properties_container_value_type PRIVATE doctest)
+add_test(NAME "tlf::properties::container_value_type" COMMAND tlf_properties_container_value_type)

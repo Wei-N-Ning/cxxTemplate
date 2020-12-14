@@ -1,10 +1,20 @@
 add_subdirectory(conditional)
 add_subdirectory(predicates)
+add_subdirectory(parampack)
 add_subdirectory(conslist)
+add_subdirectory(properties)
 
 add_executable(tlf_declval declval.cpp)
 target_link_libraries(tlf_declval PRIVATE doctest)
 add_test(NAME "tlf::declval" COMMAND tlf_declval)
+
+add_executable(tlf_decltype decltype.cpp)
+target_link_libraries(tlf_decltype PRIVATE doctest)
+add_test(NAME "tlf::decltype" COMMAND tlf_decltype)
+
+add_executable(tlf_decltype_instances decltype_instances.cpp)
+target_link_libraries(tlf_decltype_instances PRIVATE doctest)
+add_test(NAME "tlf::decltype_on_instances" COMMAND tlf_decltype_instances)
 
 add_executable(tlf_decltype_expr_type decltype_expr_type.cpp)
 target_link_libraries(tlf_decltype_expr_type PRIVATE doctest)

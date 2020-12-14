@@ -52,7 +52,7 @@ struct MyAdvancedPair {
 template<typename X, typename Y>
 MyAdvancedPair(X, Y) -> MyAdvancedPair<X, Y>;
 
-TEST_CASE ("") {
+TEST_CASE ("test drive") {
     int * ptr = nullptr;
     MyVec v(ptr, ptr);
     static_assert(std::is_same_v<decltype(v), MyVec<int>>);
