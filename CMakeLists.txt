@@ -13,7 +13,6 @@ add_subdirectory(vendor/doctest)
 
 add_subdirectory(overloading)
 add_subdirectory(parameters)
-add_subdirectory(class)
 add_subdirectory(specialization)
 add_subdirectory(functional)
 add_subdirectory(deduction)

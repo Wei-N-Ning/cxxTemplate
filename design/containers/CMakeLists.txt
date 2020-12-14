@@ -17,3 +17,7 @@ add_test(NAME "traits::iterator-category" COMMAND traits_iterator_category)
 add_executable(nested_method_template nested_method_template.cpp)
 target_link_libraries(nested_method_template PRIVATE doctest)
 add_test(NAME "nested::method-template-in-class-template" COMMAND nested_method_template)
+
+add_executable(overload_iter_category iter_category.cpp)
+target_link_libraries(overload_iter_category PRIVATE doctest)
+add_test(NAME "overloading::iter-category" COMMAND overload_iter_category)

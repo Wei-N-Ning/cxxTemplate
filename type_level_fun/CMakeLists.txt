@@ -40,3 +40,7 @@ add_test(NAME "compute::sfinae" COMMAND compute_sfinae)
 add_executable(compute_is_prime ctvalue_is_prime.cpp)
 target_link_libraries(compute_is_prime PRIVATE doctest)
 add_test(NAME "compute::is-prime" COMMAND compute_is_prime)
+
+add_executable(tlf_ctvalue_template ctvalue_helper.cpp)
+target_link_libraries(tlf_ctvalue_template PRIVATE doctest)
+add_test(NAME "tlf::ctvalue_template" COMMAND tlf_ctvalue_template)
