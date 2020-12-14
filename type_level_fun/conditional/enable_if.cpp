@@ -51,6 +51,14 @@ fff( T x )
 
 // inspired by: modern c++ programming cookbook L3956
 // use a type alias to de-clutter the template parameter list
+/**
+ * Deprecation warning from g++-10 (cxx20)
+ *
+ * warning: ‘std::is_pod_v<X>’ is deprecated: use is_standard_layout_v && is_trivial_v instead [-Wdeprecated-declarations]
+   55 | using EnableIfPod = typename std::enable_if_t< std::is_pod_v< T > >;
+      |                                                ~~~~~^~~~~~~~~~~~~
+
+ * */
 template< typename T >
 using EnableIfPod = typename std::enable_if_t< std::is_pod_v< T > >;
 template< typename T, typename = EnableIfPod< T > >
