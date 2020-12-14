@@ -18,6 +18,10 @@
 // see Boost.Hana, a metaprogramming library suited for computations on both
 // types and values
 
+// see also
+// c++ template: complete guide L18574
+// use constexpr to compute ratio (such as chrono time units)
+
 template<typename T, T Value>
 struct CTValue {
     static constexpr T value = Value;

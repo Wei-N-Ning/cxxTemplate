@@ -19,3 +19,11 @@ add_test(NAME "tlf::decltype_on_instances" COMMAND tlf_decltype_instances)
 add_executable(tlf_decltype_expr_type decltype_expr_type.cpp)
 target_link_libraries(tlf_decltype_expr_type PRIVATE doctest)
 add_test(NAME "tlf::decltype::expression-type" COMMAND tlf_decltype_expr_type)
+
+add_executable(typing_ctvalue ctvalue.cpp)
+target_link_libraries(typing_ctvalue PRIVATE doctest)
+add_test(NAME "typing::ctvalue" COMMAND typing_ctvalue)
+
+add_executable(typing_ctvalue_auto ctvalue_auto.cpp)
+target_link_libraries(typing_ctvalue_auto PRIVATE doctest)
+add_test(NAME "typing::ctvalue-auto-deducible" COMMAND typing_ctvalue_auto)
