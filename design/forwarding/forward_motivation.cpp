@@ -88,6 +88,9 @@ pf( T&& val )
     return g( std::forward< T >( val ) );
 }
 
+// this is the benefit of perfect-forwarding - the forward-reference works for const &, mut &
+// and rvalue
+
 TEST_CASE( "function template perfect forwarding (no specific overloading)" )
 {
     X x1;
