@@ -4,7 +4,8 @@
 
 // c++ template: complete guide L/14500
 // to get the value type even if the type itself can not be
-// default-constructed
+// default-constructed (recall FP in C++, metaprogramming chapter: declval<T>() pretends
+// to create an instance of T)
 // the expression declval<T>() produces a value of type T without requiring
 // a default ctor
 // this function template is intentionally left undefined because it is only
@@ -21,38 +22,41 @@
 #include <type_traits>
 #include <utility>
 
-struct Foo {
+struct Foo
+{
     Foo() = delete;
-    explicit Foo(int) {}
+    explicit Foo( int )
+    {
+    }
 
-    template<typename T>
-    Foo operator+(const T &other) { return *this; }
+    template< typename T >
+    Foo operator+( const T& other )
+    {
+        return *this;
+    }
 
-    template<typename T>
-    friend Foo operator+(const T &other, const Foo &self) { return self; }
+    template< typename T >
+    friend Foo operator+( const T& other, const Foo& self )
+    {
+        return self;
+    }
 };
 
-struct Bar {
+struct Bar
+{
     Bar() = delete;
 };
 
-TEST_CASE ("") {
+TEST_CASE( "use declval<T> to probe the expression type that requires T instances" )
+{
     using namespace std;
 
-    static_assert(
-        is_same_v<decltype(Foo(1) + 1), Foo>
-    );
-    static_assert(
-        is_same_v<decltype(1 + Foo(1)), Foo>
-    );
+    static_assert( is_same_v< decltype( Foo( 1 ) + 1 ), Foo > );
+    static_assert( is_same_v< decltype( 1 + Foo( 1 ) ), Foo > );
 
-    auto op = [](Foo foo, int i) { return foo + i; };
-    static_assert(
-        is_same_v<Foo, result_of_t<decltype(op)(Foo, int)>>
-    );
+    auto op = []( Foo foo, int i ) { return foo + i; };
+    static_assert( is_same_v< Foo, result_of_t< decltype( op )( Foo, int ) > > );
     // with the power of declval, I can just write the expression naturally
     // without using a temporary lambda like above
-    static_assert(
-        is_same_v<Foo, decltype(declval<Foo>() + declval<int>())>
-    );
+    static_assert( is_same_v< Foo, decltype( declval< Foo >() + declval< int >() ) > );
 }

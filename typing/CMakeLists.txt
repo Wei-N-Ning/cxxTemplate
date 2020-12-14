@@ -1,3 +1,5 @@
+add_subdirectory(tags)
+
 add_executable(typing_typeTAndParamTest typeTAndParam.cpp)
 target_link_libraries(typing_typeTAndParamTest PRIVATE doctest)
 add_test(NAME "typing::T-and-param" COMMAND typing_typeTAndParamTest)

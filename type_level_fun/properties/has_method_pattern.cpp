@@ -26,25 +26,25 @@
 // on L15152, when explaining the SFINAE-based trait algorithms, it shows again
 // how to implement a "has-member-x" validation mechanism.
 // for the sake of clarity I put all the examples in /predicates
-template<typename T>
-auto len(const T &t)
--> decltype(
-    (void)(t.size()),
-    (void)(t.empty()),
-    typename T::size_type()
-) {
+template< typename T >
+auto
+len( const T& t )
+  -> decltype( ( void )( t.size() ), ( void )( t.empty() ), typename T::size_type() )
+{
     return t.size();
 }
 
-class X {
+class X
+{
 };
 
-TEST_CASE ("") {
-    std::allocator<int> alloc{};
+TEST_CASE( "test function template" )
+{
+    std::allocator< int > alloc{};
     // no matching function - sfinae works
     // len(alloc);
-    std::vector<int> xs{1, 2, 3};
-    CHECK_EQ(3, len(xs));
+    std::vector< int > xs{ 1, 2, 3 };
+    CHECK_EQ( 3, len( xs ) );
 
     X x{};
     // no matching function
