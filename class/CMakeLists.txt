@@ -6,10 +6,6 @@ add_executable(class_friend_function_template friend_function_template.cpp)
 target_link_libraries(class_friend_function_template PRIVATE doctest)
 add_test(NAME "class::friend-function-template" COMMAND class_friend_function_template)
 
-add_executable(class_stack stack.cpp)
-target_link_libraries(class_stack PRIVATE doctest)
-add_test(NAME "class::stack-example" COMMAND class_stack)
-
 add_executable(class_pod pod.cpp)
 target_link_libraries(class_pod PRIVATE doctest)
 add_test(NAME "class::pod/aggregate" COMMAND class_pod)
@@ -29,9 +25,3 @@ add_test(NAME "class::recursive-class-template" COMMAND class_recursive_template
 add_executable(class_empty_class empty_class.cpp)
 target_link_libraries(class_empty_class PRIVATE doctest)
 add_test(NAME "class::empty-class" COMMAND class_empty_class)
-
-add_executable(class_curious_recurring_template curious_recurring_template.cpp)
-target_link_libraries(class_curious_recurring_template PRIVATE doctest)
-add_test(NAME "class::curious-recurring-template" COMMAND class_curious_recurring_template)
-
-

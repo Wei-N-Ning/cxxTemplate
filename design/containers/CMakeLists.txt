@@ -1,0 +1,11 @@
+add_executable(design_containers_stack stack.cpp)
+target_link_libraries(design_containers_stack PRIVATE doctest)
+add_test(NAME "design::containers::stack-example" COMMAND design_containers_stack)
+
+add_executable(design_containers_fixed_size_stack fixed_size_stack.cpp)
+target_link_libraries(design_containers_fixed_size_stack PRIVATE doctest)
+add_test(NAME "design::containers::fixed-size-stack" COMMAND design_containers_fixed_size_stack)
+
+add_executable(design_containers_curious_recurring_template curious_recurring_template.cpp)
+target_link_libraries(design_containers_curious_recurring_template PRIVATE doctest)
+add_test(NAME "design::containers::curious-recurring-template" COMMAND design_containers_curious_recurring_template)
