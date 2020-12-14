@@ -32,3 +32,11 @@ add_test(NAME "typing::ctvalue-auto-deducible" COMMAND typing_ctvalue_auto)
 add_executable(typing_type_function type_function.cpp)
 target_link_libraries(typing_type_function PRIVATE doctest)
 add_test(NAME "typing::type-function" COMMAND typing_type_function)
+
+add_executable(compute_sfinae sfinae.cpp)
+target_link_libraries(compute_sfinae PRIVATE doctest)
+add_test(NAME "compute::sfinae" COMMAND compute_sfinae)
+
+add_executable(compute_is_prime ctvalue_is_prime.cpp)
+target_link_libraries(compute_is_prime PRIVATE doctest)
+add_test(NAME "compute::is-prime" COMMAND compute_is_prime)

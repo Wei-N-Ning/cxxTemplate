@@ -13,3 +13,7 @@ add_test(NAME "design::containers::curious-recurring-template" COMMAND design_co
 add_executable(traits_iterator_category iterator_category.cpp)
 target_link_libraries(traits_iterator_category PRIVATE doctest)
 add_test(NAME "traits::iterator-category" COMMAND traits_iterator_category)
+
+add_executable(nested_method_template nested_method_template.cpp)
+target_link_libraries(nested_method_template PRIVATE doctest)
+add_test(NAME "nested::method-template-in-class-template" COMMAND nested_method_template)

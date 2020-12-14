@@ -1,3 +1,5 @@
+add_subdirectory(decay)
+
 add_executable(traits_method_template_in_class_template methodTemplateInClassTemplate.cpp)
 target_link_libraries(traits_method_template_in_class_template PRIVATE doctest)
 add_test(NAME "traits::method-template-in-class-template" COMMAND traits_method_template_in_class_template)

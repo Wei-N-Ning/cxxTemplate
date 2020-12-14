@@ -27,3 +27,6 @@ add_executable(tlf_predicates_is_primitive_type is_primitive_type.cpp)
 target_link_libraries(tlf_predicates_is_primitive_type PRIVATE doctest)
 add_test(NAME "tlf::predicates::is-primitive-type" COMMAND tlf_predicates_is_primitive_type)
 
+add_executable(const_is_const is_const.cpp)
+target_link_libraries(const_is_const PRIVATE doctest)
+add_test(NAME "const::is-const" COMMAND const_is_const)
