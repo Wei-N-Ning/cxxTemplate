@@ -18,13 +18,15 @@ Integral constant expressions
 
  */
 
-template<unsigned int S>
-struct Vector {
-    unsigned char bytes[S];
+template< unsigned int S >
+struct Vector
+{
+    unsigned char bytes[ S ];
 };
 
-TEST_CASE ("") {
+TEST_CASE( "" )
+{
     // pass 3 as argument.
-    Vector<3> test{1, 1, 1};
-    static_assert(3 == sizeof(test), "fail");
+    Vector< 3 > test{ 1, 1, 1 };
+    static_assert( 3 == sizeof( test ), "fail" );
 }

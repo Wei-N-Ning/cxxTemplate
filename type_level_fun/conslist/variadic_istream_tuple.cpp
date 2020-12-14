@@ -14,8 +14,10 @@
 // c++ stl cookbook P/351
 //
 
-template<typename X, typename... Xs>
-void do_print(std::ostream &os, const X &x, const Xs &...xs) {
+template< typename X, typename... Xs >
+void
+do_print( std::ostream& os, const X& x, const Xs&... xs )
+{
     os << x;
     // c++ stl cookbook P/155
     // we can not just write os.operator<<(xs) ... using the ... notation
@@ -31,45 +33,45 @@ void do_print(std::ostream &os, const X &x, const Xs &...xs) {
     //    the init list
     // 3. f(x) in the (f(xs), 0)... expr is again cast to void, so the return
     //   value is really not processed anywhere if it has any
-    (void)std::initializer_list<int>{
-        ((os << "" <<xs), 0)...
-    };
+    ( void )std::initializer_list< int >{ ( ( os << "" << xs ), 0 )... };
 }
 
 // this works too
-template<typename ... Xs>
-void print_(std::ostream &os, const Xs &... xs) {
-    std::cout << __PRETTY_FUNCTION__  << std::endl;
-    (void)std::initializer_list<int>{
-        ((os << "" <<xs), 0)...
-    };
+template< typename... Xs >
+void
+print_( std::ostream& os, const Xs&... xs )
+{
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    ( void )std::initializer_list< int >{ ( ( os << "" << xs ), 0 )... };
 }
 
-template<typename... Ts>
-std::ostream &operator<<(std::ostream &os, const std::tuple<Ts...> &tu) {
-    auto prt = [&os](const auto &... xs) {
-        print_(os, xs...);
-    };
+template< typename... Ts >
+std::ostream&
+operator<<( std::ostream& os, const std::tuple< Ts... >& tu )
+{
+    auto prt = [ &os ]( const auto&... xs ) { print_( os, xs... ); };
     // std::apply works with tuple:
     // https://en.cppreference.com/w/cpp/utility/apply
     // template <class F, class Tuple>
     // constexpr decltype(auto) apply(F&& f, Tuple&& t);
-    std::apply(prt, tu);
+    std::apply( prt, tu );
     return os;
 }
 
-TEST_CASE ("") {
+TEST_CASE( "conslist application: print all tuple elements" )
+{
     using namespace std;
     using namespace std::string_literals;
 
     auto items = {
-        make_tuple("e1m1", "doom1"s, 1992),
-        make_tuple("e4m2", "ultimate doom"s, 1994),
+        make_tuple( "e1m1", "doom1"s, 1992 ),
+        make_tuple( "e4m2", "ultimate doom"s, 1994 ),
     };
 
     stringstream ss;
-    for (const auto &i : items) {
+    for ( const auto& i : items )
+    {
         ss << i << ", ";
     }
-    CHECK_EQ("e1m1doom11992, e4m2ultimate doom1994, ", ss.str());
+    CHECK_EQ( "e1m1doom11992, e4m2ultimate doom1994, ", ss.str() );
 }
