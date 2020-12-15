@@ -1,0 +1,4 @@
+
+add_executable(value_category_copy_elision_nomove copy_elision_nomove.cpp)
+target_link_libraries(value_category_copy_elision_nomove PRIVATE doctest)
+add_test(NAME "value_category::copy_elision_nomove" COMMAND value_category_copy_elision_nomove)
