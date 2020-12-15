@@ -4,6 +4,26 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
 
+// C++17 new syntax: simplified fold for parameter pack
+
+template< typename T >
+void
+foldThis( const T& x )
+{
+}
+
+template< typename... Ts >
+void
+foldThese( Ts... args )
+{
+    ( foldThis( args ), ... );
+}
+
+TEST_CASE( "c++17 new syntax for fold variadic template parameter pack" )
+{
+    foldThese( 1, 2.0f, 2.1, 10l, 10u, 'c' );
+}
+
 // complete guide L7766
 
 // right fold
