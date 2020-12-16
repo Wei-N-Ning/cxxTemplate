@@ -8,6 +8,8 @@
 
 // C++ 17 in detail P/58
 // this new syntax feature can simplify template definition
+// can also enable heterogeneous compile-time type list - see:
+// cxxFP/type_level_fun/conslist/typelist_creation.cpp
 
 template< typename T >
 struct Wrapped

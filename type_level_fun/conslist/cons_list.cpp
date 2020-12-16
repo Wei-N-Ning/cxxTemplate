@@ -19,20 +19,22 @@
 // IsEmpty
 // InsertionSort
 
-struct Nil {};
+struct Nil
+{
+};
 
-template<typename HeadT, typename TailT = Nil>
-struct Cons {
+template< typename HeadT, typename TailT = Nil >
+struct Cons
+{
     using Head = HeadT;
     using Tail = TailT;
 };
 
-TEST_CASE ("") {
+TEST_CASE( "construct ConsList" )
+{
     using Empty = Nil;
-    using Singleton = Cons<int, Nil>;
+    using Singleton = Cons< int, Nil >;
     // L19733
     // List does not have to be homogeneous
-    using L = Cons<int, Singleton>;
+    using L = Cons< int, Singleton >;
 }
-
-
