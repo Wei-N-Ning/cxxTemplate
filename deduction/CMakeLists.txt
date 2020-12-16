@@ -11,3 +11,7 @@ add_test(NAME "deduction::from-func-arg" COMMAND deduction_from_func_arg)
 add_executable(deduction_reference_and_T deduce_reference_and_T.cpp)
 target_link_libraries(deduction_reference_and_T PRIVATE doctest)
 add_test(NAME "deduction::references_and_T" COMMAND deduction_reference_and_T)
+
+add_executable(deduction_arg_deduction_for_class_template deduce_class_template.cpp)
+target_link_libraries(deduction_arg_deduction_for_class_template PRIVATE doctest)
+add_test(NAME "deduction::template_argument_deduction_class" COMMAND deduction_arg_deduction_for_class_template)
