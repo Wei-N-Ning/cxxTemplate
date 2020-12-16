@@ -15,3 +15,7 @@ add_test(NAME "deduction::references_and_T" COMMAND deduction_reference_and_T)
 add_executable(deduction_arg_deduction_for_class_template deduce_class_template.cpp)
 target_link_libraries(deduction_arg_deduction_for_class_template PRIVATE doctest)
 add_test(NAME "deduction::template_argument_deduction_class" COMMAND deduction_arg_deduction_for_class_template)
+
+add_executable(deduction_auto_nontype_param auto_nontype_parameter.cpp)
+target_link_libraries(deduction_auto_nontype_param PRIVATE doctest)
+add_test(NAME "deduction::auto_nontype_parameter" COMMAND deduction_auto_nontype_param)
