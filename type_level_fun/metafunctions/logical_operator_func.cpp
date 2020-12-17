@@ -29,4 +29,6 @@ TEST_CASE( "print integers only" )
 
     // can't compile
     //  printInts("asd", 1, 'a');
+
+    static_assert( std::is_same_v< void, decltype( printInts( oss, 1, 2 ) ) > );
 }
