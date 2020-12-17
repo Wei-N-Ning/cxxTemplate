@@ -1,5 +1,5 @@
 add_subdirectory(conditional)
-add_subdirectory(predicates)
+add_subdirectory(metafunctions)
 add_subdirectory(parampack)
 add_subdirectory(conslist)
 add_subdirectory(properties)
