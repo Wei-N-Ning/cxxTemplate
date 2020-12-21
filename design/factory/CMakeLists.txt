@@ -1,0 +1,3 @@
+add_executable(factory_perfect_factory perfect_factory.cpp)
+target_link_libraries(factory_perfect_factory PRIVATE doctest)
+add_test(NAME "factory::perfect_factory" COMMAND factory_perfect_factory)
