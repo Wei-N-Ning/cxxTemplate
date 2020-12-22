@@ -52,3 +52,12 @@ TEST_CASE( "test drive" )
 // c++ 17 complete guide P/99
 // compile-time if statement can model tag dispatching efficiently, in one
 // function template.
+// however, the set of overloaded functions gives you best-match semantics
+// whereas the implementation with compile-time if gives your the first-match
+// semantics;
+// to this end, I should think of the order of the if-conditions (place the
+// best match condition at the front)
+
+// c++ 17 complete guide P/100
+// compile-time if with initialization
+// I can even do value-comparison, provided that both operands are constexpr
