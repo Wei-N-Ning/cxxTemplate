@@ -14,6 +14,10 @@ add_executable(tlf_parampack_variadic_fold_reduce variadic_fold_reduce.cpp)
 target_link_libraries(tlf_parampack_variadic_fold_reduce PRIVATE doctest)
 add_test(NAME "tlf::parampack::variadic_fold_reduce" COMMAND tlf_parampack_variadic_fold_reduce)
 
+add_executable(tlf_parampack_variadic_fold_predicate variadic_fold_predicate.cpp)
+target_link_libraries(tlf_parampack_variadic_fold_predicate PRIVATE doctest)
+add_test(NAME "tlf::parampack::variadic_fold_predicate" COMMAND tlf_parampack_variadic_fold_predicate)
+
 add_executable(tlf_parampack_variadic_mapfilteracc variadic_map_filter_acc.cpp)
 target_link_libraries(tlf_parampack_variadic_mapfilteracc PRIVATE doctest)
 add_test(NAME "tlf::parampack::variadic_map_filter_acc" COMMAND tlf_parampack_variadic_mapfilteracc)
