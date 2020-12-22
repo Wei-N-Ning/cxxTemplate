@@ -2,6 +2,7 @@ add_subdirectory(containers)
 add_subdirectory(tags)
 add_subdirectory(forwarding)
 add_subdirectory(factory)
+add_subdirectory(variable_template)
 
 add_executable(typing_phantom_types phantom_types.cpp)
 target_link_libraries(typing_phantom_types PRIVATE doctest)

@@ -1,0 +1,3 @@
+add_executable(design_variable_template_global_arrays global_arrays.cpp)
+target_link_libraries(design_variable_template_global_arrays PRIVATE doctest)
+add_test(NAME "design::variable_template::global_arrays" COMMAND design_variable_template_global_arrays)
