@@ -23,6 +23,8 @@ std::array< T, N > arr;
 // NOTE:
 // this can be a quick way to provide parameterised globals
 
+// the same storage applies to non-array variable such as int or struct
+
 TEST_CASE( "global array template" )
 {
     auto p1 = ( int* )( &arr< int, 10 > );
