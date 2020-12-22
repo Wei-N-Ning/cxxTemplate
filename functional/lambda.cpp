@@ -42,7 +42,11 @@ TEST_CASE( "constexpr lambda" )
     // lambda expressions that follow the rules of standard constexpr functions are
     // implicitly declared as constexpr!
 
-    auto f = []( auto x, auto y ) { return x + y; };
+    // c++ 17 the complete guide
+    // since c++17, lambdas are implicitly constexpr if possible
+    // to find out at compile time whether a lambda is valid for a compile-
+    // time context, you can declare it as `constexpr`
+    auto f = []( auto x, auto y ) constexpr { return x + y; };
     static_assert( f( 1, 2 ) == 3 );
 
     // constexpr function requirements
