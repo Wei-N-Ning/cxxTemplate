@@ -20,6 +20,14 @@
 
 // this example is inspired by Effective Modern C++, Item 18
 
+// c++ 17 the complete guide P/39
+// with rvo and mandatory copy-elision, this type of `perfect factory` is
+// highly encouraged, even when the object is not allowed to copy or move
+//
+// examples:
+// unique_ptr<>
+// atomic<>
+
 // base type
 struct Investment
 {

@@ -20,6 +20,36 @@
 // will initialize x with the value(s) that (were originally going to) construct the
 // prvalue directly
 
+// c++ 17 the complete guide P/43
+
+// prvalue: pure rvalue
+// xvalue: expiring value
+// glvalue: generalized lvalue
+
+// glvalues: expressions for locations of objects or functions
+// prvalues: expressions for initializations
+
+// c++ 17 then introduces a new term, called materialization (of a temporary),
+// for the moment a prvalue becomes a temporary object. Thus a temporary
+// materialization conversion is a prvalue-to-xvalue conversion.
+
+// any time a prvalue validly appears where a glvalue (lvalue or xvalue) is
+// expected, a temporary object is created and initialized with the prvalue
+// (recall that prvalues are primarily "initializing values"), and the prvalues
+// is replaced by an xvalue designating the temporary
+
+// with this modification, that prvalues are no longer objects but are instead
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// expressions that can be used to initialize objects, the required copy
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// elision makes perfect sense
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// we only pass an initial value (expression) around that is sooner or later
+// materialized to initialize an object
+
+// NOTE:
+// copy-elision is also documented in cxxPerformance with a different focus.
+
 struct T
 {
     // the only way to construct T is via this ctor
