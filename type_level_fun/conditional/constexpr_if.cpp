@@ -26,8 +26,21 @@ f( Ts... args )
     {
         return Case::Blue;
     }
-    return Case::Red;
+    else // DO NOT omit the else branch
+    {
+        return Case::Red;
+    }
 }
+
+// c++ 17 complete guide P/97
+
+// some important notes on constexpr if-statement (compile-time if-statement)
+
+//  - it does not short-circuit; use nested constexpr if-statement to model
+//    the chain of requirements
+//  - both if-branch and else-branch matters! do not omit the else-branch (use
+//    runtime if-statement's fall-over mechanism)
+//  - it can cause the return type of the function template differs
 
 TEST_CASE( "test drive" )
 {
@@ -35,3 +48,7 @@ TEST_CASE( "test drive" )
     CHECK_EQ( Case::Red, f() );
     CHECK_EQ( Case::Red, f( 1 ) );
 }
+
+// c++ 17 complete guide P/99
+// compile-time if statement can model tag dispatching efficiently, in one
+// function template.
