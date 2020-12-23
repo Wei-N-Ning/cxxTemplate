@@ -13,3 +13,7 @@ add_test(NAME "tlf::conditional::enable-if" COMMAND tlf_conditional_enable_if)
 add_executable(tlf_conditional_sfinae_if_not sfinae_if_not.cpp)
 target_link_libraries(tlf_conditional_sfinae_if_not PRIVATE doctest)
 add_test(NAME "tlf::conditional::sfinae-if-not" COMMAND tlf_conditional_sfinae_if_not)
+
+add_executable(tlf_conditional_void_t void_t.cpp)
+target_link_libraries(tlf_conditional_void_t PRIVATE doctest)
+add_test(NAME "tlf::conditional::void_t" COMMAND tlf_conditional_void_t)
