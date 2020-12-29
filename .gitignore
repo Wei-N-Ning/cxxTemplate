@@ -3,4 +3,4 @@ build
 cmake-build-debug
 .gdb_history
 *.swp
-
+a.out

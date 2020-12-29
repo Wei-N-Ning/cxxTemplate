@@ -6,7 +6,7 @@
 # Mozilla (BSD/Eric Allman style bracket and indentation)
 # etc.
 # see: https://en.wikipedia.org/wiki/Indentation_style
-BasedOnStyle: Mozilla
+BasedOnStyle: Google
 
 # indent case labels  one level from the switch statement
 IndentCaseLabels: true

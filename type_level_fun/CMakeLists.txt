@@ -44,3 +44,6 @@ add_test(NAME "compute::is-prime" COMMAND compute_is_prime)
 add_executable(tlf_ctvalue_template ctvalue_helper.cpp)
 target_link_libraries(tlf_ctvalue_template PRIVATE doctest)
 add_test(NAME "tlf::ctvalue_template" COMMAND tlf_ctvalue_template)
+
+add_executable(tlf_check_cxx_standard_version check_cxx_standard_version.cpp)
+add_test(NAME "tlf::check_cxx_standard_version" COMMAND tlf_check_cxx_standard_version)
