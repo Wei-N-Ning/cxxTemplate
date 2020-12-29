@@ -8,6 +8,12 @@
 #include <ostream>
 #include <iterator>
 
+// c++20 the programmer's intro P/5
+// a series of type-level function to check the c++ standard version;
+// they work cross-platform;
+// there is also a macro that is supposed to be supported by all the
+// standard-compliant compilers (I tested it on clang and gcc)
+
 template < std::size_t N >
 struct array
 {
@@ -66,6 +72,7 @@ struct is_cpp17
     };
 };
 
+// c++14 feature: free function std::cbegin()
 int cbegin( ... );
 
 struct is_cpp14
@@ -78,6 +85,7 @@ struct is_cpp14
     };
 };
 
+// c++11 feature: move function
 int move( ... );
 
 struct is_cpp11
